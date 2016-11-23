@@ -1,7 +1,26 @@
-
-How to create an application in Kotlin and secure it using Json Web Tokens (JWT’s)
-
-Sathyaish Chakravarthy ● Wednesday, 14th September 2016
+---
+layout: post
+title: "How to create an application in Kotlin and secure it using Json Web Tokens (JWT’s)"
+description: "In this article, we’ll learn how to create a simple application using Kotlin, a statically typed programming language that targets the Java Virtual Machine (JVM). We’ll secure all communication with our application using JSON Web Tokens (JWT’s)."
+date: 2016-09-14 00:00
+updated: 2016-11-23 20:30
+category: Technical guide, Backend, Kotlin, JWT, OAuth
+author:
+  name: Sathyaish Chakravarthy
+  url: http://twitter.com/Sathyaish
+  mail: Sathyaish@gmail.com
+  avatar: ""
+design:
+  bg_color: ""
+  image: 
+tags:
+- Kotlin
+- OAuth
+- OAuth2
+- JWT
+- Authentication
+- Authorization
+---
 
 ---
 
