@@ -28,14 +28,18 @@ tags:
 
 ---
 
-In this article, we’ll learn how to create a simple application using Kotlin, a statically typed programming language that targets the Java Virtual Machine (JVM). We’ll secure all communication with our application using JSON Web Tokens (JWT’s).
+In this article, we’ll learn how to create a simple application using [Kotlin](https://kotlinlang.org/), a statically typed programming language that targets the Java Virtual Machine (JVM). We’ll secure all communication with our application using [JSON Web Tokens (JWT’s)](https://jwt.io/).
+
 Don’t worry if you don’t know what a JSON Web Token (JWT) is. I’ll cover that in a bit.
 
 And you don’t need to know any Kotlin either. If you’ve got some decent programming experience with any programming language, you’ll be able to follow through without any difficulty. If you’re a Java programmer, though, you’ll feel right at home because Kotlin uses the Java API to do everything. It’s got a very sparse syntax with a light-weight standard library.
+
 In fact, let us cover all of the features of Kotlin used in the code that goes with this article.
 
-A Crash Course in Kotlin
+## A Crash Course in Kotlin
+
 To declare a variable that can be written to and read from:
+
 
 Semi-colons as statement terminators are optional. But it’s a good practice to have them anyway. All throughout our code, we’ll use semi-colons to terminate statements.
 
