@@ -200,14 +200,17 @@ If you mark an object declaration with the companion keyword, the members of the
 
 That’s pretty much all you need to know to get started and be productive with Kotlin.
 
-What We’re Going to Develop
+## What We’re Going to Develop
+
 We’ll create a client/server application that gets from a web API, a list of book recommendations for a logged in user based on the user’s interests or likes. We’ll store the user’s likes in a database.
+
 We’ll write both the client and the web API in Kotlin. The client will be a desktop application written using the Swing/AWT libraries. The server, an HTTP Servlet that returns data objects declared in a library named Contracts as JSON strings. We’ll call our application, i.e. we’ll call this whole system by the name Bookyard.
+
 Here’s what the high-level component architecture for Bookyard would look like:
  
 
+## Workflow
 
-Workflow
 Assuming the servlet application is running, when the user launches the client application, a login dialog will appear.
  
 A successful login will dismiss the login dialog and display a window listing the recommended books for the logged in user.
@@ -215,82 +218,130 @@ A successful login will dismiss the login dialog and display a window listing th
 Please ignore the aesthetical anomalies of the graphical user interface.
 
 
+## OAuth 2.0 and Token /Claims Based Authorization
 
-OAuth 2.0 and Token /Claims Based Authorization
 In order to understand how we’ll ensure secured communication between the client and the server of Bookyard, I’d like to provide a to-a-four-year-old explanation of some of the highfalutin terms popularly used in elite architect circles.
+
 Consider a traditional web application that resides on a single server. That’s how it used to be done in the old days when the Web was a new thing – you had all the source code on a single server.
+
 You had two parties:
 1.	A web server that had some server side code that ran on the remote server and also some client side code that ran on the browser. 
 
 Since both, the client code and the server code were part of a single application written usually by a single developer or company, the server side code and the client side code could be considered a single entity or a single application.
 
 2.	The user using the application in a Web browser.
+
 In those cases, a simple user name and password based authentication was sufficient to validate the identity of the user.
 When the user logged in, the server would issue a session id and an authentication cookie to the user’s browser. The browser would carry these two with every subsequent request to the server.
-This all worked fine until the number of users outgrew the server’s capacity to handle requests.
-Scenario 1: A Clustered Environment
-When you had two servers running the same application code, you had a problem. If the login request came to server A, which issued a session cookie and an authentication cookie to the user, server B didn’t know anything about those cookies, so any subsequent requests coming in to server B even after the user had innocently validated his identity earlier with server A would fail with server B.
-One obvious solution to this problem is to make server A and server B share their session Id’s. This could be done by having an external state server that held the session state for the entire Web application in an external data source such as a database or an in-memory state server.
-A similar but simpler and more secure solution, however, is to have a separate authentication server. Each request that comes to either of the servers A or B is validated for the presence of a special value in the request header – a value that could only have been obtained from the authentication server. If the value is present, the servers A or B service the request. If, however, the special value is missing, the client gets redirected to the authentication server, which after logging the user in, issues this special value that represents a successful login and an active session. Let’s call this value returned by the authentication server may be called an authentication token.
-Below is a diagrammatic representation of this simple sequence of three interactions.
 
- 
+This all worked fine until the number of users outgrew the server’s capacity to handle requests.
+
+
+## Scenario 1: A Clustered Environment
+
+When you had two servers running the same application code, you had a problem. If the login request came to server A, which issued a session cookie and an authentication cookie to the user, server B didn’t know anything about those cookies, so any subsequent requests coming in to server B even after the user had innocently validated his identity earlier with server A would fail with server B.
+
+One obvious solution to this problem is to make server A and server B share their session Id’s. This could be done by having an external state server that held the session state for the entire Web application in an external data source such as a database or an in-memory state server.
+
+A similar but simpler and more secure solution, however, is to have a separate authentication server. Each request that comes to either of the servers A or B is validated for the presence of a special value in the request header – a value that could only have been obtained from the authentication server. If the value is present, the servers A or B service the request. If, however, the special value is missing, the client gets redirected to the authentication server, which after logging the user in, issues this special value that represents a successful login and an active session. Let’s call this value returned by the authentication server may be called an authentication token.
+
+Below is a diagrammatic representation of this simple sequence of three interactions.
 
 Under this regime, when the user sends in a request to any of the servers A or B, each of them checks if the user has an access token or not. If he doesn’t, they redirect his request to the authorization server, whose duty is to ask the user for his user name and password, authenticate his identity and issue him an authentication token upon successful login.
  
-The user’s request is then redirected automatically back to the original URL he intended to get the data from, i.e. one of server A or server B. This time, his request carries with it the token, so either of the servers fulfills his request.
- 
+The user’s request is then redirected automatically back to the original URL he intended to get the data from, i.e. one of server A or server B. This time, his request carries with it the token, so either of the servers fulfills his request. 
 
 This scheme of authentication and authorization is known as token based authentication or token based authorization. A series of steps performed in a sequence, as indicated above, may also be called a workflow. Let us name this particular workflow the Simple Authentication Server Workflow.
+
 I’d like to confess that the names authentication token and Simple Authentication Server Workflow are names I have made up. You will not find them in security literature. But in deliberately flying by the seat of my pants on good accord, I am trying to avoid trespassing names that already occur in security literature with specific connotations. If I named this token an access token, for example, or I named the series of steps described above as Authorization Workflow, I’d be trespassing a commonly accepted nomenclature that we’ll make a nodding acquaintance with later in this article.
+
 The above series of steps, though potent as a basic building block for more specialized variants, are rather simplistic in that they do not describe the contents of the token, and ways of securing it against theft. In practice, how we name such a token is predicated on such puritanical considerations.
-Token Uses and Composition
+
+## Token Uses and Composition
+
 In our simple example, the client application is a Web application that serves a list of book recommendations for a user based on the user’s likes. The authentication server is a separate endpoint that could be a part of the same application or of a different one. The simplicity, however, is born of an assumption that both, the authentication server and the resource servers are developed by the same vendor.
+
 Because both, the authentication server and the resource servers are assumed to either be a part of the same Web application or at worst be URL’s of two Web applications developed by the same vendor, the use of such a token was both, to authenticate a user, and consequently authorize him for access to the data held in the resource servers.
+
 The evolution of the Web in recent times has opened up a slew of interesting possibilities which call for variations on the workflow described above.
-Authentication
+
+## Authentication
+
 Big players such as Google, Yahoo!, Facebook, to name a few, command large user bases of the total Internet population. This has encouraged users and Web application developers to trust these big players to authenticate users for their identity, consequently freeing up Web application developers to concentrate on developing just business logic, delegating the just the authentication of their users to these giants.
+
 Imagine building a job search portal. You need to validate that the user is above 18 years of age and has a valid social security number. You don’t really care about any other information about the user. In this case, you could use the US government website to validate the user against these two parameters and receive a token containing identification information about the user. This specific need for authenticating a user’s identity dictates what the contents of the token will be.
-Authorization
+
+## Authorization
+
 Another use that has come to light is the sharing of data from one Web application to another. Consider yourself developing a photo editing software for your users. Instead of having users upload pictures to your Web server, you could pull out their pictures from their Flickr accounts, edit them in your application, and save them to the user’s dropbox or back to their Flickr accounts. In this case, you don’t care about the user’s identity so much as much as you care about their permission to use their Flickr photographs and their dropbox account.
+
 Both the above uses, namely authentication and authorization of users, dictate the separation of the server granting the token, the role of such a token, and consequently its contents.
+
 Though OAuth 2.0 access tokens are opaque strings, the authorization server may, upon request, attach additional information about a user such as his full name, email address, organization, designation and what have you into the token container. Such a workflow is illustrated by a variation named Open ID Connect, which builds on top of the OAuth 2.0 framework. This token would then be called an ID Token. This would obviate the necessity for a database look-up. If such information were to be required by any of the servers A or B, they could simply read it from the ID token itself without making a trip to the database server. Each such optional datum attached to an access token is known as a claim as it establishes a claim upon the identity of the user. For this reason, token based authentication is also referred to as claims based authentication.
+
 The client or server may communicate using tokens even when their dialog does not pertain to authentication or authorization. With each request, the client may package information it needs to send to the server in the form of a token, although, it wouldn’t be called an access token in that case. You’ll observe later that the login dialog of Bookyard Client sends the user’s username and password in such a token when making a login request to the Bookyard server. That is an example usage of a token of such kind but not for the purposes of behaving like an access token.
-Scenario 2: The Distributed Web and OAuth 2.0
+
+
+## Scenario 2: The Distributed Web and OAuth 2.0
+
 This mechanism of claims based authorization described in the above paragraphs has opened up the Web to new possibilities. Consider a scenario where you needed to import your Gmail contacts into Linked In so you could invite them all to join your Linked In network.
+
 Until the year 2007, you couldn’t have done that without having your arm twisted. The only way to do that would have been for Linked In to present you with a screen where in you typed your Gmail user name and password into a Linked In user interface, effectively giving Linked In your Gmail user name and password. What a shoddy life our younger selves lived!
-Thankfully, a bunch of guys at Twitter got together and said, “That must change!”
+
+Thankfully, a bunch of guys at Twitter got together and said, “That must change
+
 They started by identifying that in a transaction of the kind described above, there are three parties involved:
+
 1.	A resource server: A server where the user’s data is kept. In this case, Gmail, because your contacts would be kept there.
 2.	A user, who owned the resources at Gmail; and
 3.	A client: A third-party application that needed access to your data from the resource server. In other words, Linked In (the third-party) that needed your Gmail (resource server) contacts.
+
 They wrote out a bunch of rules which, both, the resource server, Gmail in this example, and the third-party application, Linked In in our example, would have to incorporate into their code in order to perform claims based authorization so that you wouldn’t have to give your Gmail user name and password to Linked In.
+
 This grand scheme of interaction, they called OAuth. It has since caught on like wild fire.
+
 OAuth has, since its advent, been revised twice as v1, v1a and v2.0. Version 2.0 is the most recent and popular one and the versions are not backward compatible. Any reference to OAuth in this article without an explicit version suffix must be understood to mean OAuth 2.0.
+
 Today, virtually every website from Github to Gmail, Picassa to Flickr, and perhaps even your own company has a resource server that exposes data in an OAuth way. The OAuth 2.0 specification also calls resource servers by the name OAuth servers, and the third-party clients by the name OAuth clients.
+
 Today, virtually every user, knowingly or not, uses OAuth. Wherever on the Web you see buttons of the kind below, that is OAuth 2.0 in action.
- 
- 
- 
 
 The evolution of the Web has enabled a scenario where the traditional web application could be written by an OAuth provider, the client application, as was the case with Linked In in our example above, written by someone else, and the user could be someone else.
+
 OAuth 2.0 access tokens are opaque and can be any string; even the string “Hello, World!” But such a value offers no security. In practice, an access token is a bit more useful than “Hello, World,” carries an expiry timestamp and and may even be encrypted using symmetric or asymmetric encryption.
-What is a JSON Web Token (JWT)?
-The access token is essentially a string sent in the header of the HTTP response by the authorization server to the client. With every subsequent request, the client sends this string back to the server in one of the three ways:
+
+
+## What is a JSON Web Token (JWT)?
+
+The access token is essentially a string sent in the header of the HTTP response by the authorization server to the client. 
+
+With every subsequent request, the client sends this string back to the server in one of the three ways:
 1.	As a part of the URL in a GET request; or
 2.	As the part of the body in a POST request; or
 3.	The most preferred way is to send it as part of the Authorization HTTP Header in the form:
-Authorization: Bearer <accessToken>The OAuth 2.0 specification pussy-foots its way out of mandating a method, deferring the choice to the authorization server. In other words, whether or not to use a JWT for an access token, which of the above three methods a client must adopt is dictated by the authorization server documentation. The OAuth 2.0 extensions specifications relate to the choices of the access token structure. Clients are not free to choose any of the three at their disposition. 
+
+Authorization: Bearer <accessToken>
+
+The OAuth 2.0 specification pussy-foots its way out of mandating a method, deferring the choice to the authorization server. In other words, whether or not to use a JWT for an access token, which of the above three methods a client must adopt is dictated by the authorization server documentation. The OAuth 2.0 extensions specifications relate to the choices of the access token structure. Clients are not free to choose any of the three at their disposition.
+
 Note the word bearer and also the moniker bearer token used to represent an access token. The moniker bearer token is righty applied as the access token is a bearer instrument. Just like a tender bill in your pocket, or a movie ticket you buy, the access token doesn’t have a way to attach the user with it. Once you lose it, anyone who has it may misuse it to represent themselves as you thereby stealing your identity.
+
 Therefore, the best practice is to obscure the access token. For additional security, you may encrypt it.
+
 If you were to write a client that had to first decide how to compose an access token string, then program that same logic in the OAuth server, which you didn’t write, by the way, and then encrypt the access token, oh but wait! You’ve got to decide the encryption algorithm, and then a secret key with which to encrypt it. And then it doesn’t stop here. You’ve to tell all this to the server so they can write the back-logic for all this decryption using the same technique. And then they have to again create a new access token to send you after a successful login, oh, oh, oh my! That would all add up to a gigantic amount of nuisance.
+
 Thankfully, another bunch of people were interested in and were following the development of OAuth saw far into the future to anticipate this pain. They defined a bunch of formats that all OAuth servers and clients could be free to choose from to create access tokens. One such format is named Json Web Tokens (JWT).
+
 The format lets you compose the access token as a JSON string.
+
 It has three parts:
 a.	A header that lets you specify that the string is a JWT, and the signing algorithm chosen to sign the token, if any.
 b.	A body containing the user claims. This is also referred to as the payload.
 c.	A signature. The signature is derived by first converting the header into a base-64 string, then converting the payload into base-64 string, concatenating the two base-64 encoded values with a period as a separator between the encoded values, then using a secret key to sign the resultant string.
+
 The snippet below illustrates the composition of a JSON Web Token:
+
+```javascript
 Header
 {
   "alg": "HS256",
@@ -309,15 +360,19 @@ HMACSHA256(
   base64UrlEncode(header) + "." +
   base64UrlEncode(payload),
   secret);
+  
+```
 
 When sending the JWT, you send in the header and payload parts encoded as base64 url. Then you add another period at the end of these two parts, and append the signature derived from the algorithm above to the end of this string. Therefore, an example JWT might look like this (newlines added for readability):
+
+```javascript
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 .
 eyJpc3MiOiJPQXV0aCBTZXJ2ZXIgTmFtZSIsInN1YiI6IlRoaXMgaXMgdGhl
 IHN1YmplY3Qgb2YgY29tbXVuaWNhdGlvbiIsIm5hbWUiOiJKb2huIERvZSJ9
 .
 odvw2LUXNBannNwpstpQsnYxngoOuN1h0penPRvz2fI
- 
+```
 
 The benefits of using a JWT with claims based authentication, as obvious from the commentary above, are:
 a.	Works in a clustered environment as well as a single-server deployment.
