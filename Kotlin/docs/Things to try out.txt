@@ -1,0 +1,31 @@
+Exceptions
+
+Generics
+
+Lambdas
+
+classes, inheritance, polymorphism
+
+data types
+
+collections -- iterator
+
+data type api (string.length, array.lastIndex, etc.)
+
+all the LINQ operator equivalants -- filter, sortedBy, map, forEach
+
+what is the default implementation of toString()?
+
+try out getters and setters for the immutable / read-only val's and the mutable read-write vars
+
+Where is the reference to the source object in an extension method?
+
+How do you use the lazily instantiated Lazy<T>. Does its factory get executed the first time you ever access it? Most likely. But still. Just use it.
+
+How do you express Customer[] or an array of anything for that matter? I see an IntArray but I'd like to see a comprehensive list of types.
+
+How do I browse to definition in IntelliJIdea?
+
+Closures?
+
+How do you write static methods?

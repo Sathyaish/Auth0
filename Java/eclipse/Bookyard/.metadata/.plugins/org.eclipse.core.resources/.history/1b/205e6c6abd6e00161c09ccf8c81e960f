@@ -1,0 +1,15 @@
+package practice.bookyard.server.util;
+
+import practice.bookyard.contracts.IAuthenticationManager;
+import practice.bookyard.contracts.OperationResult;
+import practice.bookyard.contracts.beans.User;
+
+public class DatabaseAuthenticationManager implements IAuthenticationManager<User> {
+
+	@Override
+	public OperationResult<User> AuthenticateUser(String userName, String password, String appId, String appSecret) {
+		
+		
+		return null;
+	}
+}

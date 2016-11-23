@@ -1,0 +1,16 @@
+package Practice.Java.Swing;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		SwingUtilities.invokeLater(new SecondWindowEventLoop());
+		
+		SwingUtilities.invokeLater(new MainWindowEventLoop());
+		
+		System.out.println(String.format("Main thread %1$d started.", Thread.currentThread().getId()));
+	}
+}

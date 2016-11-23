@@ -1,0 +1,14 @@
+package practice.bookyard.client;
+
+import javax.swing.JDialog;
+
+public class LoginDialog extends JDialog {
+	
+	protected String title;
+	
+	public LoginDialog(String title) {
+		super(title);
+		
+		this.title = title;
+	}
+}

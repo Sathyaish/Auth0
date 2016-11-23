@@ -1,0 +1,23 @@
+package practice.bookyard.client;
+
+import javax.swing.JPanel;
+
+public class LoginPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	
+	protected JLabel lblUserName;
+	protected JLabel lblPassword;
+	protected JTextField txtUserName;
+	protected JTextField txtPassword;
+	protected JButton btnLogin;
+	protected JButton btnCancel;
+
+	public LoginPanel() {
+		super();
+	}
+	
+	protected void Initialize() {
+		
+	}
+}

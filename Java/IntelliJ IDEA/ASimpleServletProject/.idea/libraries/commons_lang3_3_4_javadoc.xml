@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="commons-lang3-3.4-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jjwt-0.7.0-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/sqljdbc42.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

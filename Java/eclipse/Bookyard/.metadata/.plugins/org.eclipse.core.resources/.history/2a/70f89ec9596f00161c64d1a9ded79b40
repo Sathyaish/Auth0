@@ -1,0 +1,68 @@
+package practice.bookyard.client;
+
+import java.util.Map;
+
+import javax.swing.JFrame;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import practice.bookyard.contracts.Constants;
+import practice.bookyard.contracts.beans.User;
+
+public class BookRecommendationsFrame extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private String accessToken = null;
+	
+	public BookRecommendationsFrame(String accessToken) { 
+		
+		User user = this.getUserFromAccessToken(accessToken);
+		
+		this.setAccessToken(accessToken);
+		
+		this.setTitle(String.format("Loading %s's book recommendations...", user.getFullName()));
+	}
+
+	private User getUserFromAccessToken(String accessToken) {
+		
+		String appSecret = "Auth0 is awesome!";
+		
+		// parse the access token JWT
+		Jws<Claims> jwsClaims = Jwts.parser()
+				.setSigningKey(appSecret)
+				.parseClaimsJws(accessToken);
+		
+		Claims body = jwsClaims.getBody();
+		
+		for(Map.Entry<String, Object> entry : body.entrySet())
+		{
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
+		
+		// if it is not of type AccessToken, throw
+		if (!body.get("sub").toString().contentEquals(Constants.JWT_SUBJECT_ACCESS_TOKEN))
+		{
+			throw new IllegalArgumentException("Does not represent a valid access token.", null);
+		}
+		
+		// if it is not of type AccessToken, throw
+		if (!body.get("iss").toString().contentEquals("Bookyard Server"))
+		{
+			throw new IllegalArgumentException("Invalid token source.", null);
+		}
+		
+		User user = new User();
+		user.setId((int)body.get("Id"));
+		user.setUserName(body.get("userName").toString());
+		user.setFullName(body.get("fullName").toString());
+		user.setEmail(body.get("email").toString());
+		user.setAppId(body.get("appId").toString());
+		
+		return user;
+	}
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+}

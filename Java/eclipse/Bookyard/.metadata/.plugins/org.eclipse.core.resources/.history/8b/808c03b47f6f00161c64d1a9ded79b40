@@ -1,0 +1,5 @@
+package practice.bookyard.server;
+
+public class AuthorizationFilter {
+
+}

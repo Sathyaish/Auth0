@@ -1,0 +1,7 @@
+package Practice.Java.Swing;
+
+import javax.swing.JFrame;
+
+public class SecondWindow extends JFrame {
+
+}

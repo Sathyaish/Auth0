@@ -1,0 +1,5 @@
+package practice.bookyard.contracts;
+
+public class OperationResult {
+
+}

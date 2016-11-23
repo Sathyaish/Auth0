@@ -1,0 +1,7 @@
+package practice.bookyard.client;
+
+import practice.bookyard.contracts.OperationResult;
+
+public interface IAuthenticationManager {
+	OperationResult<String> AuthenticateUser(String userName, String password);
+}

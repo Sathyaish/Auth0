@@ -1,0 +1,5 @@
+package bookyard.contracts
+
+data class Constants(loginUrl : String = "http://localhost:8080/Bookyard.server/login",
+					 securedLoginUrl : String = "https://localhost:8443/Bookyard.server/login") {
+}

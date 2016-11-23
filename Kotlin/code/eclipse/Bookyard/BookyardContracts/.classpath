@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.jetbrains.kotlin.core.KOTLIN_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/bin/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/bin/commons-lang3-3.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/bin/jackson-annotations-2.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/bin/jackson-core-2.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/bin/jackson-databind-2.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/bin/jjwt-0.7.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_65/bin/sqljdbc42.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

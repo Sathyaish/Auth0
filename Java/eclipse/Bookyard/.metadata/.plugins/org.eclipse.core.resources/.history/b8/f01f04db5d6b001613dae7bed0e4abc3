@@ -1,0 +1,55 @@
+package practice.bookyard.client;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+public class LoginPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	
+	protected JLabel lblUserName;
+	protected JLabel lblPassword;
+	protected JTextField txtUserName;
+	protected JTextField txtPassword;
+	protected JButton btnLogin;
+	protected JButton btnCancel;
+
+	public LoginPanel() {
+		super();
+	}
+	
+	protected void Initialize() {
+		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		// Create controls
+		lblUserName = new JLabel("User Name: ");
+		lblPassword = new JLabel("Password: ");
+		txtUserName = new JTextField(10);
+		txtPassword = new JPasswordField(10);
+		
+		// Set them on the panel using the constraints
+		// 3 rows, 2 columns
+		
+		// lblUserName
+		
+		// txtUserName
+		
+		// lblPassword
+		
+		// txtPassword
+		
+		// btnLogin
+		
+		// btnPassword
+		
+		this.pack();
+	}
+}

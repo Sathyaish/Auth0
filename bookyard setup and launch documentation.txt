@@ -1,0 +1,6 @@
+Set up:
+Run database
+Set classpath
+If you want HTTPS, recommended, change Run Configurations, create key and add it to the keystore.
+
+To launch the application, clone this repository to a folder of your choice. Let's assume you clone it to the folder **C:\temp** on your machine. Launch IntelliJ IDEA Ultimate Edition. In the start-up screen, choose **Open** to open an existing project. In the **Open Project** dialog, browse to the folder **C:\temp\Bookyard\Kotlin** on your computer and click **Ok**.

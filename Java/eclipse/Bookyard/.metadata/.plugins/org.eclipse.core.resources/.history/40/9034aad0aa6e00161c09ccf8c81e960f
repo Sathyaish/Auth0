@@ -1,0 +1,126 @@
+package practice.bookyard.server;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import practice.bookyard.contracts.OperationResult;
+import practice.bookyard.server.util.Database;
+import practice.bookyard.server.util.PasswordHash;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public LoginServlet() {
+    	
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
+		String msg = "HTTP GET method not supported.";
+		
+        try {
+			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPostDatabase(request, response);
+	}
+	
+	private void doPostInternal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String hash = null;
+		
+		try {
+			String loginRequestJWT = request.getParameter("data");
+			
+			hash = PasswordHash.Compute(loginRequestJWT);
+			String responseString = String.format("Password hash for '%s': %s", loginRequestJWT, hash);
+			System.out.println(responseString);
+			response.getWriter().append(responseString);
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	private void doPostDatabase(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try
+		{
+			String appId = request.getParameter("appId");
+			
+			if(appId == null || appId.length() == 0)
+			{
+				OperationResult<String> result = new OperationResult<String>(false, "Bad Request. Missing appId.", null);
+				ObjectMapper mapper = new ObjectMapper();
+				String resultString = mapper.writeValueAsString(result);
+				response.getWriter().append(resultString);
+			}
+			
+			String key = "Auth0 is awesome!"; // Get key for this application Id
+			
+			
+			// parse the JWT in the request body
+			String loginRequestJWT = request.getParameter("token");
+			Jws<Claims> jwsClaims = Jwts.parser()
+					.setSigningKey(key)
+					.parseClaimsJws(loginRequestJWT);
+			
+			if (jwsClaims == null)
+			{
+				System.out.println("jwsClaims is null");
+			}
+			else
+			{
+				Claims body = jwsClaims.getBody();
+				
+				for(Map.Entry<String, Object> entry : body.entrySet())
+				{
+					System.out.println(entry.getKey() + ": " + entry.getValue());
+				}
+			}
+			
+			// if it is not of type LoginRequest, send failure, Bad Request: Invalid request subject.
+			
+			// if the user exists with that user name and that password and has a membership of
+			// that appication (issuer == appId), and that application's secret is correct, then
+			// make a jwt with the username, userid, full name, application name, email, appId, appTableId, issuer, expires
+			
+			// otherwise, return invlalid login.
+			
+			Connection connection = Database.getConnection();
+			
+			if (connection == null)
+			{
+				System.out.println("Connection is null.");
+				response.getWriter().append("Connection is null");
+			}
+			else
+			{
+				System.out.println(connection.toString());
+				response.getWriter().append(connection.toString());
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			response.getWriter().append(ex.getMessage());
+		}
+	}
+}

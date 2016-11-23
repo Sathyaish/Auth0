@@ -1,0 +1,15 @@
+package Practice.Java.Swing;
+
+import javax.swing.JFrame;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		
+		JFrame frame = new JFrame();
+		frame.setVisible(true);
+		
+	}
+
+}

@@ -1,0 +1,8 @@
+package practice.bookyard.contracts;
+
+public class Constants {
+	
+	public static String getLoginUrl() {
+		return "http://localhost:8080/Bookyard.server/login";
+	}
+}

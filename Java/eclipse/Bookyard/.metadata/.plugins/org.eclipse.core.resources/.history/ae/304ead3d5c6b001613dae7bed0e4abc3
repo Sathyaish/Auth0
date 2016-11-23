@@ -1,0 +1,24 @@
+package practice.bookyard.client;
+
+import java.awt.Dialog;
+
+import javax.swing.JDialog;
+
+public class LoginDialog extends JDialog {
+	
+	private static final long serialVersionUID = 1L;
+	
+	public LoginDialog(String title) {
+		
+		super((Dialog)null);
+		
+		this.setTitle(title);
+		
+		Initialize();
+	}
+	
+	protected void Initialize() {
+		// TO DO
+		
+	}
+}

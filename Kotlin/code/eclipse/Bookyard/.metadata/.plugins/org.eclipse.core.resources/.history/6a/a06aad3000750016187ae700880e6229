@@ -1,0 +1,66 @@
+package bookyard.client
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.font.TextAttribute;
+import kotlin.collections.MutableMap;
+
+import javax.swing.*;
+
+public class HyperLinkLabel(var url : String, var text : String) : JPanel() {
+  
+  val label: JLabel;
+
+  init {
+	  
+	  val gridLayout : GridLayout = GridLayout(0, 1);
+	  gridLayout.setVgap(7);
+	  this.setLayout(gridLayout);
+	  
+	  label = JLabel();
+	  
+	  this.setLabel(this.url, this.text);
+	  this.add(this.label);
+	  
+	  val font : Font = this.label.getFont();
+	  val attributes : MutableMap<TextAttribute, *> = font.getAttributes();
+	  attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+	  this.label.setFont(font.deriveFont(attributes));
+	  
+	  this.label.addMouseListener(new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			label.setCursor(Cursor.getDefaultCursor());
+		}
+	  });
+  }
+  
+  public fun setLabel(url: String, title: String) {
+	  
+	  val text : String = "<html><a href=\" " + url + "\">" + title + "</a></html>";
+	  this.label.setText(text);
+  }
+  
+}

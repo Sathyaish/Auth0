@@ -1,0 +1,26 @@
+package practice.bookyard.server.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Database {
+	
+	public static Connection getConnection() {
+		String url = "jdbc:sqlserver://ADMIN-VAIO:1433;instance=SQLEXPRESS;databaseName=Bookyard;integratedSecurity=true;";
+		Connection connection = null;
+		
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			
+			connection = DriverManager.getConnection(url);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return connection;
+	}
+
+}

@@ -1,0 +1,5 @@
+package Practice.Java.Swing;
+
+public class DetailsPanelAddButtonListenerArgs {
+
+}

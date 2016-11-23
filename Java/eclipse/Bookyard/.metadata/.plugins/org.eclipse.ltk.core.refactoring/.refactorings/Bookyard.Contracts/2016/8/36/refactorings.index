@@ -1,0 +1,13 @@
+1472562100040	Encapsulate field 'userId'
+1472562117338	Encapsulate field 'userName'
+1472562127116	Encapsulate field 'applicationTableId'
+1472562133305	Encapsulate field 'applicationId'
+1472562137970	Encapsulate field 'applicationName'
+1472562616512	Delete element
+1472562693635	Delete element
+1472645771467	Encapsulate field 'id'
+1472645776089	Encapsulate field 'name'
+1472645779450	Encapsulate field 'author'
+1472645782754	Encapsulate field 'description'
+1472645786497	Encapsulate field 'amazonUrl'
+1472646291281	Rename method 'AuthenticateUser'

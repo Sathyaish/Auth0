@@ -1,0 +1,45 @@
+package Practice.Java.Swing;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class DetailsPanel extends JPanel {
+	public DetailsPanel() {
+		super();
+		
+		Initialize();
+	}
+
+	private void Initialize() {
+		
+		// Set preferred width
+		Dimension dimension = this.getPreferredSize();
+		dimension.width = 250;
+		this.setPreferredSize(dimension);
+		
+		// Set the border of the panel
+		this.setBorder(BorderFactory.createTitledBorder("Personal Details"));
+		
+		// Create controls
+		JLabel lblName = new JLabel("Name: ");
+		JLabel lblOccupation = new JLabel("Occupation: ");
+		JTextField txtName = new JTextField();
+		JTextField txtOccupation = new JTextField();
+		JButton btnAdd = new JButton("Add");
+		
+		// Create a layout manager -- I'll use the GridLayout
+		this.setLayout(new GridBagLayout());
+		
+		// Put the controls on the manager using a GridLayoutContstraints object
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		
+	}
+}

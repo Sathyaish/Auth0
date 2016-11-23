@@ -1,0 +1,15 @@
+package Practice.Java.Swing;
+
+import javax.swing.JFrame;
+
+public class SecondWindow extends JFrame {
+	public SecondWindow(String title) {
+		super(title);
+		
+		Initialize();
+	}
+	
+	private void Initialize()
+	{
+	}
+}

@@ -1,0 +1,8 @@
+package bookyard.contracts.beans;
+
+import java.util.ArrayList;
+
+data class BookRecommendations(var userId : Int = 0,
+							   var userName : String? = null,
+							   val books : List<Book> = ArrayList<Book>()) {
+}

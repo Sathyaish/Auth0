@@ -1,0 +1,24 @@
+package Practice.Java.Swing;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
+public class DetailsPanel extends JPanel {
+	public DetailsPanel() {
+		super();
+		
+		Initialize();
+	}
+
+	private void Initialize() {
+		
+		// Set the border of the panel
+		this.setBorder(BorderFactory.createTitledBorder("Personal Details"));
+		
+		// Creat controls
+		
+		// Create a layout manager -- I'll use the GridLayout
+		
+		// Put the controls on the manager using a GridLayoutContstraints object
+	}
+}

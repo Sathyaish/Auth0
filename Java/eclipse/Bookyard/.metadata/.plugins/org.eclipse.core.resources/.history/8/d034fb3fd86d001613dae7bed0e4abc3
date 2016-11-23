@@ -1,0 +1,5 @@
+package practice.bookyard.server.util;
+
+public class PasswordHash {
+
+}

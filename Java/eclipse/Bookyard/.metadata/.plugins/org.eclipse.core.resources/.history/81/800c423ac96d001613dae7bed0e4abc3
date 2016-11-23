@@ -1,0 +1,5 @@
+package practice.bookyard.client;
+
+public class WebRequest {
+
+}

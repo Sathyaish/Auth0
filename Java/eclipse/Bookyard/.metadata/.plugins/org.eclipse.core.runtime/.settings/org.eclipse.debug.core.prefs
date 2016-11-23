@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="salt"/>\r\n<expression enabled\="true" text\="e"/>\r\n<expression enabled\="true" text\="accessToken"/>\r\n<expression enabled\="true" text\="expiryDate"/>\r\n<expression enabled\="true" text\="expiryTimestamp.toString()"/>\r\n<expression enabled\="true" text\="threshold.toString()"/>\r\n</watchExpressions>\r\n

@@ -1,0 +1,50 @@
+package practice.bookyard.server;
+
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import practice.bookyard.contracts.beans.User;
+
+public class AuthorizationFilter implements javax.servlet.Filter {
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		
+		HttpServletRequest req = (HttpServletRequest) request;
+		
+		String path = req.getServletPath();
+		
+		if (path.contentEquals("/login"))
+		{
+			req.setAttribute("User", null);
+			chain.doFilter(request, response);
+			return;
+		}
+		else
+		{
+			// Just check for the presence of the accessToken
+			String authorizationHeader = req.getHeader("Authorization");
+			
+			User user = new User();
+			// if it is there, determine the user and put that in the request property bag
+			req.setAttribute("User", user);
+			// if it isn't there, clear the request property bag, send a failure response, stop the chain of filters
+		}
+	}
+
+	@Override
+	public void destroy() {
+	}
+
+}

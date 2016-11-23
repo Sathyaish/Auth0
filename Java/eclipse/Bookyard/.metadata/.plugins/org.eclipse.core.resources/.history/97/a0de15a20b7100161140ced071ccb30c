@@ -1,0 +1,43 @@
+package practice.bookyard.client;
+
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import practice.bookyard.contracts.beans.Book;
+
+public class BookRecommendationsContentPanel extends JPanel {
+	
+	public BookRecommendationsContentPanel() {
+		super();
+		
+		GridLayout gridLayout = new GridLayout(0, 1);
+		gridLayout.setVgap(7);
+		this.setLayout(gridLayout);
+	}
+	
+	public void AddBook(Book book) {
+		
+		JPanel pnlBook = new JPanel();
+		
+		// pnlBook.setSize((int)(pnlBook.getParent().getWidth() * 0.85), pnlBook.getHeight());
+		
+		HyperLinkLabel hyperlinkLabel = new HyperLinkLabel(book.getAmazonUrl(), book.getName());
+		
+		// hyperlinkLabel.addMouseListener()
+		
+		pnlBook.add(hyperlinkLabel);
+		
+		JLabel lblAuthor = new JLabel(book.getAuthor());
+		lblAuthor.setFont(new Font("Times New Roman", Font.ITALIC, 12));
+		pnlBook.add(lblAuthor);
+		
+		JLabel lblDescription = new JLabel(book.getDescription());
+		lblDescription.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		pnlBook.add(lblDescription);
+		
+		return pnlBook;
+	}
+}

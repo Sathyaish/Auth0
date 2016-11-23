@@ -1,0 +1,8 @@
+1472723441901	Rename local variable 'jwt'
+1472728422677	Rename method 'saveAccessToken'
+1472730420325	Rename local variable 'newExpiryDate'
+1472731365162	Rename local variable 'javaSqlExpiryDate'
+1472731373743	Rename local variable 'javaUtilExpiryDate'
+1472731440528	Rename local variable 'javaSqlExpiryDate'
+1472734476836	Rename method 'doPostDatabase'
+1472735024090	Rename local variable 'expiryDate'

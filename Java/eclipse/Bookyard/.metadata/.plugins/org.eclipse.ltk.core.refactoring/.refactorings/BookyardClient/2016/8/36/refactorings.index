@@ -1,0 +1,7 @@
+1472556747743	Rename field 'clientId'
+1472556769090	Rename field 'clientSecret'
+1472560811078	Copy compilation unit
+1472560840955	Delete element
+1472634185864	Encapsulate field 'accessToken'
+1472634245696	Encapsulate field 'user'
+1472654990644	Rename local variable 'loginUrl'

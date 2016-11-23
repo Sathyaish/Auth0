@@ -1,0 +1,217 @@
+Aug 22, 2016 11:13:58 AM com.sun.enterprise.admin.launcher.GFLauncherLogger info
+
+INFO: JVM invocation command line:
+C:\Program Files\Java\jre1.8.0_65\bin\java.exe
+-cp
+C:/Program Files/Java/java_ee_sdk-7u1/glassfish4/glassfish/modules/glassfish.jar
+
+-XX:+UnlockDiagnosticVMOptions
+-XX:NewRatio=2
+-XX:MaxPermSize=192m
+-Xmx512m
+-javaagent:C:/Program Files/Java/java_ee_sdk-7u1/glassfish4/glassfish/lib/monito
+r/flashlight-agent.jar
+-client
+-Djavax.xml.accessExternalSchema=all
+-Djavax.net.ssl.trustStore=C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glas
+sfish\domains\domain1/config/cacerts.jks
+-Djdk.corba.allowOutputStreamSubclass=true
+-Dfelix.fileinstall.dir=C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glassfi
+sh/modules/autostart/
+-Dorg.glassfish.additionalOSGiBundlesToStart=org.apache.felix.shell,org.apache.f
+elix.gogo.runtime,org.apache.felix.gogo.shell,org.apache.felix.gogo.command,org.
+apache.felix.shell.remote,org.apache.felix.fileinstall
+-Dcom.sun.aas.installRoot=C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glass
+fish
+-Dfelix.fileinstall.poll=5000
+-Djava.endorsed.dirs=C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glassfish/
+modules/endorsed;C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glassfish/lib/
+endorsed
+-Djava.security.policy=C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glassfis
+h\domains\domain1/config/server.policy
+-Dosgi.shell.telnet.maxconn=1
+-Dfelix.fileinstall.bundles.startTransient=true
+-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.
+config.serverbeans.AppserverConfigEnvironmentFactory
+-Dfelix.fileinstall.log.level=2
+-Djavax.net.ssl.keyStore=C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glassf
+ish\domains\domain1/config/keystore.jks
+-Djava.security.auth.login.config=C:\Program Files\Java\java_ee_sdk-7u1\glassfis
+h4\glassfish\domains\domain1/config/login.conf
+-Dfelix.fileinstall.disableConfigSave=false
+-Dfelix.fileinstall.bundles.new.start=true
+-Dcom.sun.aas.instanceRoot=C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glas
+sfish\domains\domain1
+-Dosgi.shell.telnet.port=6666
+-Dgosh.args=--nointeractive
+-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as
+-Dosgi.shell.telnet.ip=127.0.0.1
+-DANTLR_USE_DIRECT_CLASS_LOADING=true
+-Djava.awt.headless=true
+-Dcom.ctc.wstx.returnNullForDefaultNamespace=true
+-Djava.ext.dirs=C:\Program Files\Java\jre1.8.0_65/lib/ext;C:\Program Files\Java\
+jre1.8.0_65/jre/lib/ext;C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glassfi
+sh\domains\domain1/lib/ext
+-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver
+-Djava.library.path=C:/Program Files/Java/java_ee_sdk-7u1/glassfish4/glassfish/l
+ib;C:/ProgramData/Oracle/Java/javapath;C:/Windows/Sun/Java/bin;C:/Windows/System
+32;C:/Windows;C:/Program Files/Common Files/Microsoft Shared/Windows Live;C:/Pro
+gram Files (x86)/Common Files/microsoft shared/Windows Live;C:/Program Files (x8
+6)/NVIDIA Corporation/PhysX/Common;C:/Windows/System32/wbem;C:/Windows/System32/
+WindowsPowerShell/v1.0;C:/Program Files (x86)/Sony/VAIO Startup Setting Tool;C:/
+Program Files/Trend Micro/AMSP;C:/Program Files (x86)/Windows Live/Shared;C:/Pro
+gram Files/TortoiseGit/bin;C:/Program Files (x86)/Smart Projects/IsoBuster;C:/Pr
+ogram Files/Microsoft SQL Server/110/Tools/Binn;C:/Program Files (x86)/Microsoft
+ SDKs/TypeScript/1.0;C:/Program Files/Microsoft SQL Server/120/Tools/Binn;C:/Pro
+gram Files/Microsoft SQL Server/Client SDK/ODBC/110/Tools/Binn;C:/Program Files
+(x86)/Microsoft SQL Server/120/Tools/Binn;C:/Program Files/Microsoft SQL Server/
+120/DTS/Binn;C:/Program Files (x86)/Microsoft SQL Server/120/Tools/Binn/Manageme
+ntStudio;C:/Program Files (x86)/Microsoft SQL Server/120/DTS/Binn;C:/Program Fil
+es (x86)/Skype/Phone;C:/Program Files/Microsoft/Web Platform Installer;C:/Progra
+m Files (x86)/QuickTime/QTSystem;C:/Program Files/Git/cmd;C:/Program Files/nodej
+s;C:/Program Files/Microsoft SQL Server/130/Tools/Binn;C:/Users/computer/AppData
+/Local/Programs/Python/Python36/Scripts;C:/Users/computer/AppData/Local/Programs
+/Python/Python36;C:/Users/computer/.dnx/bin;C:/Users/computer/AppData/Roaming/np
+m;C:/Program Files/Java/java_ee_sdk-7u1/glassfish4/glassfish/bin
+com.sun.enterprise.glassfish.bootstrap.ASMain
+-upgrade
+false
+-domaindir
+C:/Program Files/Java/java_ee_sdk-7u1/glassfish4/glassfish/domains/domain1
+-read-stdin
+true
+-asadmin-args
+--host,,,localhost,,,--port,,,4848,,,--secure=false,,,--terse=false,,,--echo=fal
+se,,,--interactive=true,,,start-domain,,,--verbose=true,,,--watchdog=false,,,--d
+ebug=false,,,--domaindir,,,C:\Program Files\Java\java_ee_sdk-7u1\glassfish4\glas
+sfish\domains,,,domain1
+-domainname
+domain1
+-instancename
+server
+-type
+DAS
+-verbose
+true
+-asadmin-classpath
+C:/Program Files/Java/java_ee_sdk-7u1/glassfish4/glassfish/modules/admin-cli.jar
+
+-debug
+false
+-asadmin-classname
+com.sun.enterprise.admin.cli.AdminMain
+Launching GlassFish on Felix platform
+Aug 22, 2016 11:13:59 AM com.sun.enterprise.glassfish.bootstrap.osgi.BundleProvi
+sioner createBundleProvisioner
+INFO: Create bundle provisioner class = class com.sun.enterprise.glassfish.boots
+trap.osgi.BundleProvisioner.
+Aug 22, 2016 11:13:59 AM com.sun.enterprise.glassfish.bootstrap.osgi.BundleProvi
+sioner$DefaultCustomizer getLocations
+WARNING: Skipping entry  because it is not an absolute URI.
+Aug 22, 2016 11:13:59 AM com.sun.enterprise.glassfish.bootstrap.osgi.BundleProvi
+sioner$DefaultCustomizer getLocations
+WARNING: Skipping entry  because it is not an absolute URI.
+Registered com.sun.enterprise.glassfish.bootstrap.osgi.EmbeddedOSGiGlassFishRunt
+ime@745fdf00 in service registry.
+Found populator: com.sun.enterprise.v3.server.GFDomainXml
+
+
+
+#!## LogManagerService.postConstruct : rootFolder=C:\Program Files\Java\java_ee_
+sdk-7u1\glassfish4\glassfish
+#!## LogManagerService.postConstruct : templateDir=C:\Program Files\Java\java_ee
+_sdk-7u1\glassfish4\glassfish\lib\templates
+#!## LogManagerService.postConstruct : src=C:\Program Files\Java\java_ee_sdk-7u1
+\glassfish4\glassfish\lib\templates\logging.properties
+#!## LogManagerService.postConstruct : dest=C:\Program Files\Java\java_ee_sdk-7u
+1\glassfish4\glassfish\domains\domain1\config\logging.properties
+[#|2016-08-22T11:14:01.628+0530|INFO|glassfish 4.1|javax.enterprise.logging|_Thr
+eadID=17;_ThreadName=RunLevelControllerThread-1471844641467;_TimeMillis=14718446
+41628;_LevelValue=800;_MessageID=NCLS-LOGGING-00009;|
+  Running GlassFish Version: GlassFish Server Open Source Edition  4.1  (build 1
+3)|#]
+
+[#|2016-08-22T11:14:01.631+0530|INFO|glassfish 4.1|javax.enterprise.logging|_Thr
+eadID=17;_ThreadName=RunLevelControllerThread-1471844641467;_TimeMillis=14718446
+41631;_LevelValue=800;_MessageID=NCLS-LOGGING-00010;|
+  Server log file is using Formatter class: com.sun.enterprise.server.logging.OD
+LLogFormatter|#]
+
+[#|2016-08-22T11:14:01.838+0530|INFO|glassfish 4.1|javax.enterprise.system.core.
+security|_ThreadID=16;_ThreadName=RunLevelControllerThread-1471844641464;_TimeMi
+llis=1471844641838;_LevelValue=800;_MessageID=NCLS-SECURITY-01115;|
+  Realm [admin-realm] of classtype [com.sun.enterprise.security.auth.realm.file.
+FileRealm] successfully created.|#]
+
+[#|2016-08-22T11:14:01.905+0530|INFO|glassfish 4.1|javax.enterprise.system.core.
+security|_ThreadID=16;_ThreadName=RunLevelControllerThread-1471844641464;_TimeMi
+llis=1471844641905;_LevelValue=800;_MessageID=NCLS-SECURITY-01115;|
+  Realm [file] of classtype [com.sun.enterprise.security.auth.realm.file.FileRea
+lm] successfully created.|#]
+
+[#|2016-08-22T11:14:01.911+0530|INFO|glassfish 4.1|javax.enterprise.system.core.
+security|_ThreadID=16;_ThreadName=RunLevelControllerThread-1471844641464;_TimeMi
+llis=1471844641911;_LevelValue=800;_MessageID=NCLS-SECURITY-01115;|
+  Realm [certificate] of classtype [com.sun.enterprise.security.auth.realm.certi
+ficate.CertificateRealm] successfully created.|#]
+
+[#|2016-08-22T11:14:02.241+0530|INFO|glassfish 4.1|org.hibernate.validator.inter
+nal.util.Version|_ThreadID=19;_ThreadName=RunLevelControllerThread-1471844641476
+;_TimeMillis=1471844642241;_LevelValue=800;|
+  HV000001: Hibernate Validator 5.0.0.Final|#]
+
+[#|2016-08-22T11:14:02.330+0530|INFO|glassfish 4.1|javax.enterprise.security.ser
+vices|_ThreadID=18;_ThreadName=RunLevelControllerThread-1471844641475;_TimeMilli
+s=1471844642330;_LevelValue=800;_MessageID=SEC-SVCS-00100;|
+  Authorization Service has successfully initialized.|#]
+
+[#|2016-08-22T11:14:02.610+0530|INFO|glassfish 4.1|org.glassfish.ha.store.spi.Ba
+ckingStoreFactoryRegistry|_ThreadID=16;_ThreadName=RunLevelControllerThread-1471
+844641464;_TimeMillis=1471844642610;_LevelValue=800;|
+  Registered org.glassfish.ha.store.adapter.cache.ShoalBackingStoreProxy for per
+sistence-type = replicated in BackingStoreFactoryRegistry|#]
+
+[#|2016-08-22T11:14:02.799+0530|INFO|glassfish 4.1|javax.enterprise.system.core|
+_ThreadID=17;_ThreadName=RunLevelControllerThread-1471844641467;_TimeMillis=1471
+844642799;_LevelValue=800;_MessageID=NCLS-CORE-00087;|
+  Grizzly Framework 2.3.15 started in: 155ms - bound to [/0.0.0.0:8080]|#]
+
+[#|2016-08-22T11:14:02.856+0530|INFO|glassfish 4.1|javax.enterprise.system.core|
+_ThreadID=17;_ThreadName=RunLevelControllerThread-1471844641467;_TimeMillis=1471
+844642856;_LevelValue=800;_MessageID=NCLS-CORE-00087;|
+  Grizzly Framework 2.3.15 started in: 22ms - bound to [/0.0.0.0:8181]|#]
+
+[#|2016-08-22T11:14:02.885+0530|INFO|glassfish 4.1|javax.enterprise.system.core|
+_ThreadID=17;_ThreadName=RunLevelControllerThread-1471844641467;_TimeMillis=1471
+844642885;_LevelValue=800;_MessageID=NCLS-CORE-00087;|
+  Grizzly Framework 2.3.15 started in: 19ms - bound to [/0.0.0.0:4848]|#]
+
+[#|2016-08-22T11:14:02.973+0530|INFO|glassfish 4.1|javax.enterprise.system.core|
+_ThreadID=17;_ThreadName=RunLevelControllerThread-1471844641467;_TimeMillis=1471
+844642973;_LevelValue=800;_MessageID=NCLS-CORE-00087;|
+  Grizzly Framework 2.3.15 started in: 14ms - bound to [/0.0.0.0:3700]|#]
+
+[#|2016-08-22T11:14:03.159+0530|INFO|glassfish 4.1|javax.enterprise.system.core|
+_ThreadID=1;_ThreadName=main;_TimeMillis=1471844643159;_LevelValue=800;_MessageI
+D=NCLS-CORE-00017;|
+  GlassFish Server Open Source Edition  4.1  (13) startup time : Felix (2,950ms)
+, startup services(1,700ms), total(4,650ms)|#]
+
+[#|2016-08-22T11:14:04.559+0530|INFO|glassfish 4.1|javax.enterprise.system.core|
+_ThreadID=18;_ThreadName=RunLevelControllerThread-1471844641475;_TimeMillis=1471
+844644559;_LevelValue=800;_MessageID=NCLS-CORE-00087;|
+  Grizzly Framework 2.3.15 started in: 23ms - bound to [/0.0.0.0:7676]|#]
+
+[#|2016-08-22T11:14:04.878+0530|INFO|glassfish 4.1|javax.enterprise.bootstrap|_T
+hreadID=1;_ThreadName=main;_TimeMillis=1471844644878;_LevelValue=800;_MessageID=
+NCLS-BOOTSTRAP-00027;|
+  Registered com.sun.enterprise.glassfish.bootstrap.osgi.EmbeddedOSGiGlassFishIm
+pl@7435a578 as OSGi service registration: org.apache.felix.framework.ServiceRegi
+strationImpl@281f23f2.|#]
+
+[#|2016-08-22T11:14:05.128+0530|INFO|glassfish 4.1|javax.enterprise.system.jmx|_
+ThreadID=67;_ThreadName=Thread-16;_TimeMillis=1471844645128;_LevelValue=800;_Mes
+sageID=NCLS-JMX-00005;|
+  JMXStartupService has started JMXConnector on JMXService URL service:jmx:rmi:/
+/admin-VAIO:8686/jndi/rmi://admin-VAIO:8686/jmxrmi|#]
+

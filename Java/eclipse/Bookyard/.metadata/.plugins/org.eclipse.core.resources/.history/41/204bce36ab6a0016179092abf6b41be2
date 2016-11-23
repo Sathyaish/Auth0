@@ -1,0 +1,16 @@
+package Practice.Java.Swing;
+
+import javax.swing.JFrame;
+
+public class MainWindowEventLoop implements Runnable {
+
+	@Override
+	public void run() {
+		JFrame frame = new JFrame();
+		frame.setTitle("Main Window");
+		frame.setSize(500,  800);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		System.out.println("Displaying main window");
+	}
+}

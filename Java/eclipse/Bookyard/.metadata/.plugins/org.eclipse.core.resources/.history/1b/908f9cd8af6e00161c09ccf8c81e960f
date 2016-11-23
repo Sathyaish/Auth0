@@ -1,0 +1,5 @@
+package practice.bookyard.contracts.beans;
+
+public class Membership {
+
+}

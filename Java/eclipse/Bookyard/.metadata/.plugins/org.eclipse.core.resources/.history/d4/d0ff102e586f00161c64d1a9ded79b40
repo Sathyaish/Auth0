@@ -1,0 +1,23 @@
+package practice.bookyard.client;
+
+import javax.swing.JFrame;
+
+public class BookRecommendationsFrame extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private String accessToken = null;
+	
+	public BookRecommendationsFrame(String accessToken) { 
+		
+		User user = getUserFromAccessToken(accessToken);
+		
+		if (user == null) 
+		{
+			throw new IllegalArgumentException("Invalid access token. Does not represent a valid user.", null);
+		}
+		
+		this.accessToken = accessToken;
+		
+		this.setTitle("Loading ...");
+	}
+}

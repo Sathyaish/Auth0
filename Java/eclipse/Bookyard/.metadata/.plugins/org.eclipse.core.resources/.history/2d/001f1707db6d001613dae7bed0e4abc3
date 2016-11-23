@@ -1,0 +1,47 @@
+package practice.bookyard.server;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import practice.bookyard.server.util.PasswordHash;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public LoginServlet() {
+    	
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
+		String hash = "";
+		
+		String protocol = req.getProtocol();
+        String msg = lStrings.getString("http.method_post_not_supported");
+        if (protocol.endsWith("1.1")) {
+            resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+        } else {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+        }
+		
+		try {
+			hash = PasswordHash.Compute();
+			response.getWriter().append("Password hash for 'password': ").append(hash);
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		doGet(request, response);
+	}
+
+}

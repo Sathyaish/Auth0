@@ -1,0 +1,73 @@
+Objective: what do we plan to achieve with this write-up?
+
+One sentence about what we're going to do.
+
+May be another about warding off fears of less-informed readers. Motivation.: I'll introduce the pieces as we go along. You won't need any prior knowledge of Kotlin or of Json Web Tokens.
+
+****
+
+A crash-course in Kotlin:
+val, var
+create a class
+Instantiate a class.
+properties -- read-only vs. read/write
+Orphan functions. Database.kt.
+No static methods. Constants.
+create a data class / POJO / bean / POCO.
+annoatation
+primary constructor
+initialization block
+final vs. open classes
+final vs. open functions
+create an interface
+use interface
+inherit from class
+object declaration
+companion objects
+
+Visibility modifiers mean the same as in Java. Also, packages are the same as Java.
+*****
+
+High-level application overview: what does the application do?
+diagrammatic representation of client, server, database
+screens
+
+*****
+TOKEN / CLAIMS BASED AUTHORIZATION
+
+How we secure the application using token based authorization, or claims based authorization
+What OAuth is. How delegated authorization works. (link to videos).
+The crux is: describe an OAuth scenario workflow. How the authorization is done : authorization workflow.
+The importance of doing all this over HTTPS.
+
+*****
+Our token, JWT:
+What is a JWT?
+JWT advantages -- no coupling with server technology, no cookie based session, no coupling with a particular state server so scalable, compressed
+
+*****
+
+Database schema
+
+******
+
+How it is implemented: login, authorization filter
+Book recommendations simply serves the stuff. Not much to talk about here except token sending and validation at server.
+
+*****
+THEREFORE, CRITICAL PIECES:
+HTTPS
+JWT login request
+JWT access token, the importance of it in delegated authorization, expiry, issuer and claims
+All POST requests
+Token encrypted and signed, symmetric encryption with application secret
+
+***
+
+SOURCE CODE
+You can download the source code for this here.
+To know more about the toolset, modules in the project, known issues, and how to launch the application, read the readme file in the repo.
+
+***
+
+FURTHER READING

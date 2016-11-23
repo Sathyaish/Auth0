@@ -1,0 +1,20 @@
+package bookyard.server;
+
+import javax.servlet.http.*;
+
+open class LoginServlet : HttpServlet() {
+	
+	override fun doGet(request : HttpServletRequest, response : HttpServletResponse) {
+		val msg: String = "HTTP GET method not supported.";
+		
+        try {
+			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+		} catch (e: IOException) {
+			e.printStackTrace();
+		}
+	}
+	
+	override fun doPost(request : HttpServletRequest, response : HttpServletResponse) {
+		
+	}
+}

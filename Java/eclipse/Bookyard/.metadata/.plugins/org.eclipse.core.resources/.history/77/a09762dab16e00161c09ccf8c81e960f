@@ -1,0 +1,9 @@
+package practice.bookyard.contracts.beans;
+
+public class Membership {
+	// userId
+	// userName
+	// applicationTableId
+	// applicationId
+	// applicationName
+}

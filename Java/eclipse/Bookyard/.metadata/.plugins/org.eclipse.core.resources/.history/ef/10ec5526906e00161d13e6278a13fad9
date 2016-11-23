@@ -1,0 +1,78 @@
+package practice.bookyard.server;
+
+import java.io.IOException;
+import java.sql.Connection;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import practice.bookyard.server.util.Database;
+import practice.bookyard.server.util.PasswordHash;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public LoginServlet() {
+    	
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
+		String msg = "HTTP GET method not supported.";
+		
+        try {
+			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPostDatabase(request, response);
+	}
+	
+	private void doPostInternal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String hash = null;
+		
+		try {
+			String loginRequestJWT = request.getParameter("data");
+			
+			hash = PasswordHash.Compute(loginRequestJWT);
+			String responseString = String.format("Password hash for '%s': %s", loginRequestJWT, hash);
+			System.out.println(responseString);
+			response.getWriter().append(responseString);
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	private void doPostDatabase(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try
+		{
+			Connection connection = Database.getConnection();
+			
+			if (connection == null)
+			{
+				System.out.println("Connection is null.");
+				response.getWriter().append("Connection is null");
+			}
+			else
+			{
+				System.out.println(connection.toString());
+				response.getWriter().append(connection.toString());
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			response.getWriter().append(ex.getMessage());
+		}
+	}
+}

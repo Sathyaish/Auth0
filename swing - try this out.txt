@@ -1,0 +1,9 @@
+make HTTP Request
+app.config equivalent
+
+DONE:
+create a second window the same way while the first window is still running and see what thread it runs on
+create a modal dialog example
+add a button event listener in the Personal Details.btnAdd
+Make JWT
+serialize / deserlize json

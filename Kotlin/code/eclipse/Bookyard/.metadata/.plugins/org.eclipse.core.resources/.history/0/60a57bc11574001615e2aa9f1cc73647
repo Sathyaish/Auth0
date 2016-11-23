@@ -1,0 +1,6 @@
+package bookyard.contracts.beans
+
+data class BookRecommendations(var userId : Int = 0,
+							   var userName : String? = null,
+							   val books : List<Book> = List<Book>()) {
+}

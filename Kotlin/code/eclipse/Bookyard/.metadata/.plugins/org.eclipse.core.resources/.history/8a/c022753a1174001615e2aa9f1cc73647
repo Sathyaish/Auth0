@@ -1,0 +1,4 @@
+package bookyard.contracts.beans
+
+class User {
+}

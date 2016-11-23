@@ -1,0 +1,22 @@
+package practice.bookyard.client;
+
+import java.awt.Dimension;
+
+import javax.swing.JDialog;
+
+public class LoginDialogEventLoop implements Runnable {
+
+	@Override
+	public void run() {
+		
+		JDialog dialog = new LoginDialog("Bookyard Login");
+		
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		Dimension dimension = new Dimension();
+		dialog.setSize(dimension);
+		dialog.setVisible(true);
+		
+	}
+
+}

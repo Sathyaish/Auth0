@@ -1,0 +1,8 @@
+NOT THAT IMPORTANT FOR NOW:
+closures
+concurrency -- event loop, what's the main thread doing when it commissions a JFrame on an EDT?
+
+DONE:
+do jframes run on their own separate threads?
+how to make window modal?
+how to close only the form on the application and then launch another form / window / frame if the ok button was clicked but exit the application if the close button was clicked.

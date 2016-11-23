@@ -1,0 +1,7 @@
+package Practice.Java.Swing;
+
+import javax.swing.JPanel;
+
+public class DetailsPanel extends JPanel {
+
+}

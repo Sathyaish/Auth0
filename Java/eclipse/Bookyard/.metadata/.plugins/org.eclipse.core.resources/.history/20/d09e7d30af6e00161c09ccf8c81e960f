@@ -1,0 +1,6 @@
+package practice.bookyard.contracts;
+
+public interface IAuthenticationManager {
+	OperationResult<String> AuthenticateUser(String userName, String password, 
+			String appId, String appSecret);
+}

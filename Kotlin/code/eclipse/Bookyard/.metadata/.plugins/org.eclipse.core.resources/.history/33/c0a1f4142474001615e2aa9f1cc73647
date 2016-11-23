@@ -1,0 +1,4 @@
+package bookyard.server.util
+
+class Database {
+}

@@ -1,0 +1,4 @@
+package bookyard.contracts
+
+class IAuthenticationManager {
+}

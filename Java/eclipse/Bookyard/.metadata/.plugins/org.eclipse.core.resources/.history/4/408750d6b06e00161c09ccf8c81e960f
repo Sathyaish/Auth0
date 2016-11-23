@@ -1,0 +1,38 @@
+package practice.bookyard.contracts.beans;
+
+import java.util.Collection;
+
+public class User {
+	
+	// Id
+	// userName
+	// fullName
+	// email
+	// collection of memberships ->
+	
+	private int id;
+	private String userName;
+	private String fullName;
+	private String email;
+	private Collection<Membership> memberships;
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public String getUserName() {
+		return this.userName;
+	}
+	
+	public String getFullName() {
+		return this.fullName;
+	}
+	
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public Collection<Membership> getMemberships() {
+		return this.memberships;
+	}
+}

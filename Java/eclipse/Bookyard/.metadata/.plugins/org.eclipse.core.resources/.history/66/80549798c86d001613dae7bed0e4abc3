@@ -1,0 +1,20 @@
+package practice.bookyard.client;
+
+import practice.bookyard.contracts.OperationResult;
+
+public class APIAuthenticationManager implements IAuthenticationManager {
+
+	@Override
+	public OperationResult<String> AuthenticateUser(String userName, String password) {
+		
+		// make a jwt out of the username and password
+		
+		// make a POST web request sending the jwt in the request body
+		
+		// deserialize the response into an OperationResult<String>
+		
+		// return that to the caller
+		return null;
+	}
+
+}

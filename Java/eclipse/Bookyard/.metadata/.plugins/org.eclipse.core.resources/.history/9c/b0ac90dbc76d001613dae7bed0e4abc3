@@ -1,0 +1,13 @@
+package practice.bookyard.client;
+
+import practice.bookyard.contracts.OperationResult;
+
+public class APIAuthenticationManager implements IAuthenticationManager {
+
+	@Override
+	public OperationResult<String> AuthenticateUser(String userName, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

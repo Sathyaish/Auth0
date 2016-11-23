@@ -1,0 +1,10 @@
+package practice.bookyard.contracts.beans;
+
+public class User {
+	
+	// Id
+	// userName
+	// fullName
+	// email
+	// collection of memberships ->
+}

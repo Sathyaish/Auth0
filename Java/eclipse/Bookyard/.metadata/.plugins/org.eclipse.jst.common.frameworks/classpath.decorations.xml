@@ -1,0 +1,7 @@
+<classpath>
+  <container id="Bookyard.server!org.eclipse.jst.j2ee.internal.web.container">
+    <entry id="C:/Sathyaish/Practice/Java/eclipse/workspace/Bookyard.server/WebContent/WEB-INF/lib/jjwt-0.7.0-SNAPSHOT.jar">
+      <source-attachment-path>C:/Sathyaish/Software/jjwt-master/jjwt-master/src/main/java</source-attachment-path>
+    </entry>
+  </container>
+</classpath>

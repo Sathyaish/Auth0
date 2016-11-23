@@ -1,0 +1,48 @@
+package practice.bookyard.client;
+
+import javax.xml.crypto.Data;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import practice.bookyard.contracts.OperationResult;
+
+public class APIAuthenticationManager implements IAuthenticationManager {
+
+	private String clientId;
+	private String clientSecret;
+	
+	@Override
+	public OperationResult<String> AuthenticateUser(String userName, String password) {
+		
+		try {
+			// make a jwt out of the username and password
+			String jwt = Jwts.builder()
+					.setHeaderParam("iss", clientId)
+					.setHeaderParam("foo", "bar")
+					.signWith(SignatureAlgorithm.HS256, clientSecret)
+					.compact();
+					
+			// make a POST web request sending the jwt in the request body
+			String url = "/login";
+			String body = "data=" + jwt;
+			String responseString = new WebRequest().Post(url, body);
+			
+			// deserialize the response into an OperationResult<String>
+			ObjectMapper mapper = new ObjectMapper();
+			JavaType type = mapper.getTypeFactory().constructParametricType(OperationResult.class, String.class);
+			OperationResult<String> result = mapper.readValue(responseString, type);
+			
+			// return that to the caller
+			return result;
+		}
+		catch(Exception ex) {
+			return new OperationResult<String>(false, ex.getMessage(), null);
+		}
+		
+	}
+
+}

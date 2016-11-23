@@ -1,0 +1,55 @@
+package practice.bookyard.contracts.beans;
+
+public class Membership {
+	// userId
+	// userName
+	// applicationTableId
+	// applicationId
+	// applicationName
+	
+	private int userId;
+	private String userName;
+	private int applicationTableId;
+	private String applicationId;
+	private String applicationName;
+	
+	public int getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public int getApplicationTableId() {
+		return applicationTableId;
+	}
+	
+	public void setApplicationTableId(int applicationTableId) {
+		this.applicationTableId = applicationTableId;
+	}
+	
+	public String getApplicationId() {
+		return applicationId;
+	}
+	
+	public void setApplicationId(String applicationId) {
+		this.applicationId = applicationId;
+	}
+	
+	public String getApplicationName() {
+		return applicationName;
+	}
+	
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
+	}
+}

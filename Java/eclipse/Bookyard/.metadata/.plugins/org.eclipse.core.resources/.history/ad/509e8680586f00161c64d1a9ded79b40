@@ -1,0 +1,67 @@
+package practice.bookyard.client;
+
+import java.util.Map;
+
+import javax.swing.JFrame;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import practice.bookyard.contracts.Constants;
+import practice.bookyard.contracts.OperationResult;
+import practice.bookyard.contracts.beans.User;
+import practice.bookyard.server.util.Database;
+
+public class BookRecommendationsFrame extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private String accessToken = null;
+	
+	public BookRecommendationsFrame(String accessToken) { 
+		
+		User user = this.getUserFromAccessToken(accessToken);
+		
+		if (user == null) 
+		{
+			throw new IllegalArgumentException("Invalid access token. Does not represent a valid user.", null);
+		}
+		
+		this.accessToken = accessToken;
+		
+		this.setTitle("Loading ...");
+	}
+
+	private User getUserFromAccessToken(String accessToken2) {
+		
+		String appSecret = "Auth0 is awesome!";
+		
+		// parse the access token JWT
+		Jws<Claims> jwsClaims = Jwts.parser()
+				.setSigningKey(appSecret)
+				.parseClaimsJws(accessToken);
+		
+		Claims body = jwsClaims.getBody();
+		
+		for(Map.Entry<String, Object> entry : body.entrySet())
+		{
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
+		
+		// if it is not of type AccessToken, throw
+		if (!body.get("sub").toString().contentEquals(Constants.JWT_SUBJECT_ACCESS_TOKEN)
+		{
+			OperationResult<String> result = new OperationResult<String>(false, "Bad request format. Invalid subject.", null);
+			ObjectMapper mapper = new ObjectMapper();
+			String resultString = mapper.writeValueAsString(result);
+			response.getWriter().append(resultString);
+			return;
+		}
+		
+		String userName = body.get("userName").toString();
+		String password = body.get("password").toString();
+		
+		return null;
+	}
+}

@@ -1,0 +1,138 @@
+package practice.bookyard.client;
+
+import java.awt.Dialog;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+public class LoginPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	
+	protected JLabel lblUserName;
+	protected JLabel lblPassword;
+	protected JTextField txtUserName;
+	protected JPasswordField txtPassword;
+	protected JButton btnLogin;
+	protected JButton btnCancel;
+	protected JDialog containerDialog;
+
+	public LoginPanel(JDialog containerDialog) {
+		super();
+		
+		this.containerDialog = containerDialog;
+		this.Initialize();
+	}
+	
+	protected void Initialize() {
+		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		// Create controls
+		lblUserName = new JLabel("User Name: ");
+		lblPassword = new JLabel("Password: ");
+		txtUserName = new JTextField(15);
+		txtPassword = new JPasswordField(15);
+		txtPassword.setEchoChar('*');
+		btnLogin = new JButton("Login");
+		btnCancel = new JButton("Cancel");
+		
+		// Set them on the panel using the constraints
+		// 3 rows, 3 columns
+		
+		// lblUserName
+		constraints.anchor = GridBagConstraints.FIRST_LINE_END;
+		constraints.weighty = 0.1;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		this.add(lblUserName, constraints);
+		
+		// txtUserName
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		constraints.gridwidth = 2;
+		this.add(txtUserName, constraints);
+		
+		// lblPassword
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 1;
+		this.add(lblPassword, constraints);
+		
+		// txtPassword
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		constraints.gridwidth = 2;
+		this.add(txtPassword, constraints);
+		
+		// btnLogin
+		constraints.anchor = GridBagConstraints.FIRST_LINE_END;
+		constraints.weighty = 0.8;
+		constraints.gridx = 1;
+		constraints.gridy = 2;
+		constraints.gridwidth = 1;
+		this.add(btnLogin, constraints);
+		
+		// btnCancel
+		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		constraints.gridx = 2;
+		constraints.gridy = 2;
+		constraints.gridwidth = 1;
+		this.add(btnCancel, constraints);
+		
+		btnLogin.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// authenticate user: I know how to do this
+				
+				// how do I close the login JDialog
+				// of course, I will need a reference to the dialog here
+				// which is not a big deal. I can have that be passed
+				// in via a constructor.
+				// So, supposing this 'dialog' variable represented the
+				// login dialog
+				
+				// What's the method to close this window?
+				// I believe it is dispose()
+				// But will calling the dispose method also
+				// exit the main thread since this is the 
+				// only window in the application?
+				containerDialog.dispose();
+				
+				
+			}
+		});
+		
+		btnCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// So, supposing this 'dialog' variable represented the
+				// login dialog
+				
+				// This one is a bit easier
+				// But since this is a JDialog and not a JFrame
+				// I cannot set the default close behavior
+				// to EXIT_ON_DISPOSE. I can only set it to:
+				// HIDE ON DISPOSE
+				// CLOSE ON DISPOSE
+				// DO NOTHING ON DISPOSE
+				// And since I have set it to CLOSE ON DISPOSE in Program.java
+				// just calling dispose() on this will keep the application
+				// still alive, right?
+				containerDialog.dispose();
+			}
+		});
+
+	}
+}

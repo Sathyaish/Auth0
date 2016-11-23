@@ -1,0 +1,4 @@
+package bookyard.client
+
+class CursorChanger {
+}

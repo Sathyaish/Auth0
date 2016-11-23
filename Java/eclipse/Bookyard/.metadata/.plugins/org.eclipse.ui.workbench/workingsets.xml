@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1472539440045_1" label="Bookyard Working Set" name="Bookyard Working Set">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/BookyardClient" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/Bookyard.server" type="4"/>
+<item elementID="=Bookyard.Contracts" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1471853132556_0" label="Window Working Set" name="Aggregate for window 1471853132555"/>
+<mruList name="Bookyard Working Set"/>
+</workingSetManager>

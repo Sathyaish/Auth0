@@ -1,0 +1,36 @@
+package practice.bookyard.client;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dialog;
+
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
+public class LoginDialog extends JDialog {
+	
+	private static final long serialVersionUID = 1L;
+	
+	protected JPanel loginPanel = null;
+	
+	public LoginDialog(String title) {
+		
+		super((Dialog)null);
+		
+		this.setTitle(title);
+		
+		Initialize();
+	}
+	
+	protected void Initialize() {
+		
+		loginPanel = new LoginPanel();
+		
+		this.setLayout(new BorderLayout());
+		
+		Container container = this.getContentPane();
+		container.add(loginPanel, BorderLayout.CENTER);
+		
+		this.pack();
+	}
+}

@@ -1,0 +1,15 @@
+package practice.bookyard.contracts.beans;
+
+public class Membership {
+	// userId
+	// userName
+	// applicationTableId
+	// applicationId
+	// applicationName
+	
+	private int userId;
+	private String userName;
+	private int applicationTableId;
+	private String applicationId;
+	private String applicationName;
+}

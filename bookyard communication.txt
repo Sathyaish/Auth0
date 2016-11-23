@@ -1,0 +1,42 @@
+registration request: (POST only)
+username
+password
+client_id
+client_secret
+request_type: register
+send in request body jwt
+
+registration response:
+no jwt in header
+post body -- 
+{
+	successful: true | false,
+	errorMessage: "",
+	successMessage: ""
+}
+
+
+login request (POST only): send in request body jwt
+username
+password
+client_id
+client_secret
+request_type: login
+
+
+login response:
+jwt in body
+issuer: ""
+access_token: ""
+expires: ""
+claims: "userId"
+or
+errorMessage
+
+
+get likes request:
+jwt in authorization bearer token
+
+get likes response:
+likes in body + 
+errorMessage = ""
