@@ -1198,7 +1198,7 @@ public class RecommendServlet : HttpServlet() {
 }
 
 
-Database Schema
+## Database Schema
 It would make sense to look at the database scheme now. Most of the column names are descriptive, so you’ll get what they mean. I’ll provide an explanation only where it is necessary.
 Table: User
 Column Name	Meaning
@@ -1253,21 +1253,25 @@ Author	Name of the author
 Description	
 AmazonUrl	
 
-Source Code
-You can download the whole source code for this application from this github repository. Being a C# developer, to localize complexity, after learning some basic Kotlin syntax and practicing it, I wrote the application first in Java and then translated each line to Kotlin. You’ll find both the Java and the C# versions in the Bookyard repository.
-To know more about the toolset, the modules in the project, known issues, and how to launch the application, read the ReadMe.md file in the Bookyard repository.
+## Source Code
 
-Further Reading
-1.	Kotlin Documentation
-2.	Bookyard Source Code
-3.	Bookyard ReadMe file
-4.	What is OAuth?
-5.	OAuth is about authorization, not about authentication.
-6.	OAuth is delegated authorization.
-7.	OAuth 2.0 Authorization Code Flow
-8.	Demo: OAuth 2.0 Authorization Code Flow
-9.	OAuth 2.0 YouTube Playlist
+You can download the whole source code for this application from [this github repository](https://github.com/Sathyaish/Bookyard). Being a C# developer, to localize complexity, after learning some basic Kotlin syntax and practicing it, I wrote the application first in Java and then translated each line to Kotlin. You’ll find both the Java and the C# versions in [the Bookyard repository](https://github.com/Sathyaish/Bookyard).
 
-Summary
+To know more about the toolset, the modules in the project, known issues, and how to launch the application, read [the ReadMe.md file in the Bookyard repository](https://github.com/Sathyaish/Bookyard/blob/master/README.md).
+
+## Further Reading
+
+1. [Kotlin Documentation](https://kotlinlang.org/docs/reference/)
+2. [Bookyard Source Code](https://github.com/Sathyaish/Bookyard)
+3. [Bookyard ReadMe file](https://github.com/Sathyaish/Bookyard/blob/master/README.md)
+4. [What is OAuth?](https://www.youtube.com/watch?v=60j9RfRvHJQ)
+5. [OAuth is about authorization, not about authentication.](https://www.youtube.com/watch?v=iA6VIx5lyyE)
+6. [OAuth is delegated authorization.](https://www.youtube.com/watch?v=Q-Q03qzC7zA)
+7. [OAuth 2.0 Authorization Code Flow](https://www.youtube.com/watch?v=1vovk4yt2GI)
+8. [Demo: OAuth 2.0 Authorization Code Flow](https://www.youtube.com/watch?v=CiwtxlitF7Y)
+9. [OAuth 2.0 YouTube Playlist](https://www.youtube.com/playlist?list=PLHfwoPeLRqw6JpBiWs57TeKxRn719qnzg)
+
+## Summary
+
 In this article, we learnt how to use the Kotlin programming language, which is a statically typed programming language that targets the Java Virtual Machine. We described the function of the Bookyard application.
 Then, we meandered about ways we could use token based authentication and authorization to secure an application. We learnt what OAuth 2.0 is, what JSON Web Tokens (JWT) are and how we used JWT’s to secure the Bookyard application.
