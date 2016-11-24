@@ -440,20 +440,20 @@ With every subsequent request, the client sends this string back to the server i
 
 The OAuth 2.0 specification pussy-foots its way out of mandating a method, deferring the choice to the authorization server. In other words, whether or not to use a JWT for an access token, which of the above three methods a client must adopt is dictated by the authorization server documentation. The OAuth 2.0 extensions specifications relate to the choices of the access token structure. Clients are not free to choose any of the three at their disposition.
 
-Note the word bearer and also the moniker bearer token used to represent an access token. The moniker bearer token is righty applied as the access token is a bearer instrument. Just like a tender bill in your pocket, or a movie ticket you buy, the access token doesn’t have a way to attach the user with it. Once you lose it, anyone who has it may misuse it to represent themselves as you thereby stealing your identity.
+Note the word bearer and also the moniker bearer token used to represent an access token. The moniker bearer token is righty applied as the access token is a bearer instrument. Just like a tender bill in your pocket, or [a movie ticket you buy](https://www.youtube.com/watch?v=iA6VIx5lyyE), the access token doesn’t have a way to attach the user with it. Once you lose it, anyone who has it may misuse it to represent themselves as you thereby stealing your identity.
 
 Therefore, the best practice is to obscure the access token. For additional security, you may encrypt it.
 
-If you were to write a client that had to first decide how to compose an access token string, then program that same logic in the OAuth server, which you didn’t write, by the way, and then encrypt the access token, oh but wait! You’ve got to decide the encryption algorithm, and then a secret key with which to encrypt it. And then it doesn’t stop here. You’ve to tell all this to the server so they can write the back-logic for all this decryption using the same technique. And then they have to again create a new access token to send you after a successful login, oh, oh, oh my! That would all add up to a gigantic amount of nuisance.
+If you were to write a *client* that had to first decide how to compose an access token string, then program that same logic in the *OAuth server*, which you didn’t write, by the way, and then encrypt the access token, oh but wait! You’ve got to decide the encryption algorithm, and then a secret key with which to encrypt it. And then it doesn’t stop here. You’ve to tell all this to the server so they can write the back-logic for all this decryption using the same technique. And then they have to again create a new access token to send you after a successful login, oh, oh, oh my! That would all add up to a gigantic amount of nuisance.
 
 Thankfully, another bunch of people were interested in and were following the development of OAuth saw far into the future to anticipate this pain. They defined a bunch of formats that all OAuth servers and clients could be free to choose from to create access tokens. One such format is named Json Web Tokens (JWT).
 
 The format lets you compose the access token as a JSON string.
 
 It has three parts:
-a.	A header that lets you specify that the string is a JWT, and the signing algorithm chosen to sign the token, if any.
-b.	A body containing the user claims. This is also referred to as the payload.
-c.	A signature. The signature is derived by first converting the header into a base-64 string, then converting the payload into base-64 string, concatenating the two base-64 encoded values with a period as a separator between the encoded values, then using a secret key to sign the resultant string.
+a. A header that lets you specify that the string is a JWT, and the signing algorithm chosen to sign the token, if any.
+b. A body containing the user claims. This is also referred to as the payload.
+c. A signature. The signature is derived by first converting the header into a base64 url, then converting the payload into base64 url, concatenating the two base-64 encoded values with a period as a separator between the encoded values, then using a secret key to sign the resultant string.
 
 The snippet below illustrates the composition of a JSON Web Token:
 
@@ -491,15 +491,19 @@ odvw2LUXNBannNwpstpQsnYxngoOuN1h0penPRvz2fI
 ```
 
 The benefits of using a JWT with claims based authentication, as obvious from the commentary above, are:
-a.	Works in a clustered environment as well as a single-server deployment.
-b.	Works when the client and the authorization server are independent parties not necessarily provided by the same vendor.
-c.	Can be used to centralize and jettison out the authentication and authorization of a large system.
-d.	Can be used even when each of the OAuth servers, resource servers or authorization servers are written using different technologies. For example, one of your resource servers could be written using ASP.NET, one using PHP and the authorization server could be written using Python.
-e.	There is no affinity between the client and the server. Any server will fulfil a request as long as the request has the access token.
-f.	Unless your session data is large, there is no need to maintain session separately. The expiry on the access token represents the session. The request doesn’t need to have come to the same server before in order to preserve session information. No session history need be created with each individual resource server.
-g.	Since the access token can be encrypted or signed, it can be protected from man in the middle attacks.
+a. Works in a clustered environment as well as a single-server deployment.
+b. Works when the client and the authorization server are independent parties not necessarily provided by the same vendor.
+c. Can be used to centralize and jettison out the authentication and authorization of a large system.
+d. Can be used even when each of the OAuth servers, resource servers or authorization servers are written using different technologies. For example, one of your resource servers could be written using ASP.NET, one using PHP and the authorization server could be written using Python.
+e. There is no affinity between the client and the server. Any server will fulfil a request as long as the request has the access token.
+f. Unless your session data is large, there is no need to maintain session separately. The expiry on the access token represents the session. The request doesn’t need to have come to the same server before in order to preserve session information. No session history need be created with each individual resource server.
+g. Since the access token can be encrypted or signed, it can be protected from man in the middle attacks.
+
 It is mandated that we perform token based authorization on a secure channel such as SSL/TLS/HTTPS. 
-Securing Bookyard with JSON Web Tokens (JWT’s)
+
+
+## Securing Bookyard with JSON Web Tokens (JWT’s)
+
 When the user clicks the Login button on the Login dialog, the client application composes a Json Web Token containing the following claims:
 Claim Name	Claim Meaning	Claim Value
 Iss	Issuer of the JSON Web Token (JWT).
