@@ -1222,11 +1222,11 @@ It would make sense to look at the database scheme now. Most of the column names
 
 | Column Name |	Meaning |
 |-------------|---------|
-| Id	| Integer | Primary key |
-| UserName |	String | |
-| PasswordHash	| | A hash of the user’s password. |
-| FullName	| | |
-| Email	| | |
+| Id	| Primary key |
+| UserName | |
+| PasswordHash	| A hash of the user’s password. |
+| FullName | |
+| Email	| |
 
 
 ### Table: Application
@@ -1234,60 +1234,60 @@ It would make sense to look at the database scheme now. Most of the column names
 | Column Name |	Meaning |
 |-------------|---------|
 | Id |	Integer | Primary key |
-| Name | | A user-friendly name for the OAuth client |
-| ApplicationId | | A string representing the application Id that is displayed to the client application administrator. This string is used as the appId during all communication between any OAuth clients and this server. |
-| ApplicationSecret | |	JWT’s are signed with this symmetric key. |
+| Name | A user-friendly name for the OAuth client |
+| ApplicationId |  A string representing the application Id that is displayed to the client application administrator. This string is used as the appId during all communication between any OAuth clients and this server. |
+| ApplicationSecret  |	JWT’s are signed with this symmetric key. |
 
 ### Table: Membership (A relationship table that stores what user belongs to which application/ third-party / OAuth client)
 
 
 | Column Name |	Meaning |
 |-------------|---------|
-| Id | 	Integer | Primary key |
-| UserId | |	Foreign key for `[User].[Id]` |
-| UserName | | |	
-| ApplicationTableId | | Foreign key for [Application].[Id] |
-| ApplicationId	| | |
+| Id | Primary key |
+| UserId | Foreign key for `[User].[Id]` |
+| UserName | |	
+| ApplicationTableId | Foreign key for [Application].[Id] |
+| ApplicationId	| |
 
 ### Table: AccessToken (When a login request succeeds, the server generates a new access token for that request and creates a new entry in this table if one doesn’t already exist for the application and user making the request. If an entry already exists, the server updates the entry in this table to reflect the new access token and the new expiry time. The update is necessary otherwise we will have stale/expired access tokens in this table and requests made from valid OAuth clients after the expiry will fail.)
 
 | Column Name |	Meaning |
 |-------------|---------|
-| Id | 	Integer | Primary key |
+| Id | 	Primary key |
 | UserId | Foreign key for `[User].[Id]` |
-| UserName | | |	
-| ApplicationTableId | | Foreign key for [Application].[Id] |
-| ApplicationId	| | |
-| AccessToken | |	JWT string |
-| ExpiryDate |	Datetime2 | Stored as absolute time but sent to the client in Unix Time, i.e. the number of milliseconds since 1st January 1970. |
+| UserName | |	
+| ApplicationTableId | Foreign key for [Application].[Id] |
+| ApplicationId	 | |
+| AccessToken  |	JWT string |
+| ExpiryDate |	Datetime2. Stored as absolute time but sent to the client in Unix Time, i.e. the number of milliseconds since 1st January 1970. |
 
 ### Table: Likeable (Represents things that can be liked. E.g. are “Programming”, “Java”, “Kotlin”, etc.)
 
 | Column Name |	Meaning |
 |-------------|---------|
-| Id | 	Integer | Primary key |
-| Name	| | |
+| Id |  Primary key |
+| Name | |
 
 
 ### Table: UserLike (Each entry represents a relationship between a user and the thing he likes)
 
 | Column Name |	Meaning |
 |-------------|---------|
-| Id | 	Integer | Primary key |
+| Id  | Primary key |
 | UserId | Foreign key for `[User].[Id]` |
-| UserName | | |	
-| LikeableId | | Foreign key for `[Likeable].[Id]` |
+| UserName | |	
+| LikeableId | Foreign key for `[Likeable].[Id]` |
 
 
 ### Table: Book
 
 | Column Name |	Meaning |
 |-------------|---------|
-| Id | 	Integer | Primary key |
-| Name | | Title of the book |	
-| Author | | Name of the author |	
-| Description | | |	
-| AmazonUrl | | |	
+| Id | Primary key |
+| Name  | Title of the book |	
+| Author  | Name of the author |	
+| Description | |	
+| AmazonUrl | |	
 
 
 ## Source Code
