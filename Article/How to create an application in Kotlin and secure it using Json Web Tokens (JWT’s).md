@@ -412,7 +412,7 @@ They wrote out a bunch of rules which, both, the resource server, **Gmail** in t
 
 This grand scheme of interaction, they called [OAuth](https://oauth.net/). It has since caught on like wild fire.
 
-OAuth has, since its advent, been revised twice as [v1](https://tools.ietf.org/html/rfc5849), [v1a](https://oauth.net/core/1.0a/) and v2.0(https://oauth.net/2/). Version 2.0 is the most recent and popular one and the versions are not backward compatible. Any reference to OAuth in this article without an explicit version suffix must be understood to mean [OAuth 2.0](https://tools.ietf.org/html/rfc6749).
+OAuth has, since its advent, been revised twice as [v1](https://tools.ietf.org/html/rfc5849), [v1a](https://oauth.net/core/1.0a/) and [v2.0](https://oauth.net/2/). Version 2.0 is the most recent and popular one and the versions are not backward compatible. Any reference to OAuth in this article without an explicit version suffix must be understood to mean [OAuth 2.0](https://tools.ietf.org/html/rfc6749).
 
 Today, virtually every website from [**Github**](https://github.com/) to [**Gmail**](http://gmail.com/), [**Picassa**](https://picasa.google.co.in/) to [**Flickr**](https://www.flickr.com/), and perhaps even your own company has a resource server that exposes data in an OAuth way. The [OAuth 2.0 specification](https://tools.ietf.org/html/rfc6749) also calls resource servers by the name *OAuth servers*, and the third-party clients by the name *OAuth clients*.
 
