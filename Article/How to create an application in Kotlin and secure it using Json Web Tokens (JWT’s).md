@@ -510,16 +510,21 @@ When the user clicks the **Login** button on the **Login** dialog, the client ap
 
 | Claim Name |	Claim Meaning |	Claim Value |
 |------------|----------------|-------------|
-|Iss	| Issuer of the JSON Web Token (JWT). Since the client is sending this new JWT, it writes its own application Id as the value of this claim. Though we’re using a JWT to send this information, we could have sent it as the body of a normal POST request. However, sending this information encrypted within a JWT makes it more secure. Also, this is a use of a JWT that is not used as an access token. An access token is granted by an authorization server to the client. This is an example of using a JWT as a means to communicate generic information securely between two parties. | The application Id of the client application. |
+|Iss	| Issuer of the JSON Web Token (JWT).
+
+Since the client is sending this new JWT, it writes its own application Id as the value of this claim. Though we’re using a JWT to send this information, we could have sent it as the body of a normal POST request.
+
+However, sending this information encrypted within a JWT makes it more secure.
+
+Also, this is a use of a JWT that is not used as an access token. An access token is granted by an authorization server to the client. This is an example of using a JWT as a means to communicate generic information securely between two parties. | The application Id of the client application. |
 |Sub	| The subject of the claim. | This can be any mutually agreed value between the client and the OAuth server.	In our example, the server expects the value “LoginRequest” for a login request coming from a client.|
 | username |	The user name of the user attempting to login. | There’s presently no way to create a new user and there exists just one user in the application at present. The user name of that user is Sathyaish. |
 | Password |	The password of the user attempting to login. |	The password of the only user of this application is FooBar. |
 
 The code to send this information is in a class named `APIAuthenticationManager`, which resides in the **Client** project in the package `bookyard.client` as shown by the code listing below.
 
-| Client: APIAuthenticationManager class |
-|----------------------------------------|
-|```kotlin
+### Client: APIAuthenticationManager class
+```kotlin
  package bookyard.client;
 
 import java.util.HashMap;
