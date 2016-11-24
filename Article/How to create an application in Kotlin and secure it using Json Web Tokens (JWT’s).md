@@ -1246,7 +1246,7 @@ It would make sense to look at the database scheme now. Most of the column names
 | Id | Primary key |
 | UserId | Foreign key for `[User].[Id]` |
 | UserName | |	
-| ApplicationTableId | Foreign key for [Application].[Id] |
+| ApplicationTableId | Foreign key for `[Application].[Id]` |
 | ApplicationId	| |
 
 ### Table: AccessToken (When a login request succeeds, the server generates a new access token for that request and creates a new entry in this table if one doesn’t already exist for the application and user making the request. If an entry already exists, the server updates the entry in this table to reflect the new access token and the new expiry time. The update is necessary otherwise we will have stale/expired access tokens in this table and requests made from valid OAuth clients after the expiry will fail.)
@@ -1256,7 +1256,7 @@ It would make sense to look at the database scheme now. Most of the column names
 | Id | 	Primary key |
 | UserId | Foreign key for `[User].[Id]` |
 | UserName | |	
-| ApplicationTableId | Foreign key for [Application].[Id] |
+| ApplicationTableId | Foreign key for `[Application].[Id]` |
 | ApplicationId	 | |
 | AccessToken  |	JWT string |
 | ExpiryDate |	Datetime2. Stored as absolute time but sent to the client in Unix Time, i.e. the number of milliseconds since 1st January 1970. |
