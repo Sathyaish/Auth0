@@ -451,9 +451,10 @@ Thankfully, another bunch of people were interested in and were following the de
 The format lets you compose the access token as a JSON string.
 
 It has three parts:
-a. A header that lets you specify that the string is a JWT, and the signing algorithm chosen to sign the token, if any.
-b. A body containing the user claims. This is also referred to as the payload.
-c. A signature. The signature is derived by first converting the header into a base64 url, then converting the payload into base64 url, concatenating the two base-64 encoded values with a period as a separator between the encoded values, then using a secret key to sign the resultant string.
+
+1. A header that lets you specify that the string is a JWT, and the signing algorithm chosen to sign the token, if any.
+2. A body containing the user claims. This is also referred to as the payload.
+3. A signature. The signature is derived by first converting the header into a base64 url, then converting the payload into base64 url, concatenating the two base-64 encoded values with a period as a separator between the encoded values, then using a secret key to sign the resultant string.
 
 The snippet below illustrates the composition of a JSON Web Token:
 
@@ -491,13 +492,14 @@ odvw2LUXNBannNwpstpQsnYxngoOuN1h0penPRvz2fI
 ```
 
 The benefits of using a JWT with claims based authentication, as obvious from the commentary above, are:
-a. Works in a clustered environment as well as a single-server deployment.
-b. Works when the client and the authorization server are independent parties not necessarily provided by the same vendor.
-c. Can be used to centralize and jettison out the authentication and authorization of a large system.
-d. Can be used even when each of the OAuth servers, resource servers or authorization servers are written using different technologies. For example, one of your resource servers could be written using ASP.NET, one using PHP and the authorization server could be written using Python.
-e. There is no affinity between the client and the server. Any server will fulfil a request as long as the request has the access token.
-f. Unless your session data is large, there is no need to maintain session separately. The expiry on the access token represents the session. The request doesn’t need to have come to the same server before in order to preserve session information. No session history need be created with each individual resource server.
-g. Since the access token can be encrypted or signed, it can be protected from man in the middle attacks.
+
+1. Works in a clustered environment as well as a single-server deployment.
+2. Works when the client and the authorization server are independent parties not necessarily provided by the same vendor.
+3. Can be used to centralize and jettison out the authentication and authorization of a large system.
+4. Can be used even when each of the OAuth servers, resource servers or authorization servers are written using different technologies. For example, one of your resource servers could be written using ASP.NET, one using PHP and the authorization server could be written using Python.
+5. There is no affinity between the client and the server. Any server will fulfil a request as long as the request has the access token.
+6. Unless your session data is large, there is no need to maintain session separately. The expiry on the access token represents the session. The request doesn’t need to have come to the same server before in order to preserve session information. No session history need be created with each individual resource server.
+7. Since the access token can be encrypted or signed, it can be protected from man in the middle attacks.
 
 It is mandated that we perform token based authorization on a secure channel such as SSL/TLS/HTTPS. 
 
