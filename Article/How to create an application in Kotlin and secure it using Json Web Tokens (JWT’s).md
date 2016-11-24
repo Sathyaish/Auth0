@@ -34,18 +34,44 @@ Don’t worry if you don’t know what a JSON Web Token (JWT) is. I’ll cover t
 
 And you don’t need to know any Kotlin either. If you’ve got some decent programming experience with any programming language, you’ll be able to follow through without any difficulty. If you’re a Java programmer, though, you’ll feel right at home because Kotlin uses the Java API to do everything. It’s got a very sparse syntax with a light-weight standard library.
 
-In fact, let us cover all of the features of Kotlin used in the code that goes with this article.
+In fact, let us cover all of the features of Kotlin used in the [code that goes with this article](https://github.com/Sathyaish/Bookyard).
 
 ## A Crash Course in Kotlin
 
 To declare a variable that can be written to and read from:
+```kotlin
+var name : String = “Joe Bloggs”;
 
+var age = 20; // Type inferred by the compiler
+
+age = 21; // valid statement since the variable is writable also
+```
 
 Semi-colons as statement terminators are optional. But it’s a good practice to have them anyway. All throughout our code, we’ll use semi-colons to terminate statements.
 
 To declare a read-only variable that can only be initialized once:
+```kotlin
+val name : String = “Joe Bloggs”;
+
+val age = 20;
+
+age = 21; // Illegal statement. Compiler error. The variable is read-only.
+```
 
 To create a class:
+```kotlin
+class Student() {
+  // This is a class that has one default, parameterless constructor
+  // The parenthesis after the class name is actually the constructor declaration for this class.
+}
+
+class Student {
+  // If the class has just one default parameterless constructor, 
+  // the parenthesis area optional
+}
+
+class Student; // if the class is empty, the curlies are optional.
+```
 
 To create an object of the Student class:
 
