@@ -606,7 +606,7 @@ data class OperationResult<T>
 
 Assuming that the server’s root is at [https://localhost:8443](https://localhost:8443), the client sends this request to the following URL:
 
-`HTTP POST [https://localhost:8443/login](https://localhost:8443/login)`
+`HTTP POST https://localhost:8443/login`
 
 A servlet named `LoginServlet` is configured to accept HTTPS requests from this route.
 
