@@ -510,10 +510,10 @@ When the user clicks the **Login** button on the **Login** dialog, the client ap
 
 | Claim Name |	Claim Meaning |	Claim Value |
 |------------|----------------|-------------|
-|Iss	| Issuer of the JSON Web Token (JWT).  Since the client is sending this new JWT, it writes its own application Id as the value of this claim. Though we’re using a JWT to send this information, we could have sent it as the body of a normal POST request. However, sending this information encrypted within a JWT makes it more secure. Also, this is a use of a JWT that is not used as an access token. An access token is granted by an authorization server to the client. This is an example of using a JWT as a means to communicate generic information securely between two parties. | The application Id of the client application. |
-|Sub	| The subject of the claim. | This can be any mutually agreed value between the client and the OAuth server.	In our example, the server expects the value “LoginRequest” for a login request coming from a client.|
-| username |	The user name of the user attempting to login. | There’s presently no way to create a new user and there exists just one user in the application at present. The user name of that user is Sathyaish. |
-| Password |	The password of the user attempting to login. |	The password of the only user of this application is FooBar. |
+|`iss`	| Issuer of the JSON Web Token (JWT).Since the client is sending this new JWT, it writes its own application Id as the value of this claim. Though we’re using a JWT to send this information, we could have sent it as the body of a normal POST request. However, sending this information encrypted within a JWT makes it more secure. Also, this is a use of a JWT that is not used as an access token. An access token is granted by an authorization server to the client. This is an example of using a JWT as a means to communicate generic information securely between two parties. | The application Id of the client application. |
+|`sub`	| The subject of the claim. | This can be any mutually agreed value between the client and the OAuth server.	In our example, the server expects the value “LoginRequest” for a login request coming from a client.|
+| `username` |	The user name of the user attempting to login. | There’s presently no way to create a new user and there exists just one user in the application at present. The user name of that user is Sathyaish. |
+| `password` |	The password of the user attempting to login. |	The password of the only user of this application is **FooBar**. |
 
 The code to send this information is in a class named `APIAuthenticationManager`, which resides in the **Client** project in the package `bookyard.client` as shown by the code listing below.
 
@@ -645,10 +645,11 @@ open class LoginServlet : HttpServlet() {
 }
 ```
 
-The servlet invalidates GET requests on its endpoint by returning a 405, bad request / method not allowed HTTP status code. This is a security measure to ensure that the JWT and the appId are not sent as a part of the URL. Although there is nothing wrong with sending this information in the URL from a security viewpoint, the specification defining URL’s allows a permissible length of 4096 bytes, so it is prudent that the server mandate this information be sent only as an HTTP POST request.
+The servlet invalidates GET requests on its endpoint by returning a **405, bad request / method not allowed** HTTP status code. This is a security measure to ensure that the JWT and the `appId` are not sent as a part of the URL. Although there is nothing wrong with sending this information in the URL from a security viewpoint, the specification defining URL’s allows a permissible length of 4096 bytes, so it is prudent that the server mandate this information be sent only as an HTTP POST request.
 
-Server : LoginServlet
+### Server : `LoginServlet`
 
+```kotlin
 package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
@@ -667,12 +668,14 @@ open class LoginServlet : HttpServlet() {
         }
     }
 }
+```
 
-The servlet overrides the doPost method and delegates it to an internal implementation method named doPostInternal.
-In case the parameters received in the request are invalid, an OperationResult<String> denoting a failure and containing an appropriate error message is sent to the client.
+The servlet overrides the `doPost` method and delegates it to an internal implementation method named `doPostInternal`.
+In case the parameters received in the request are invalid, an `OperationResult<String>` denoting a failure and containing an appropriate error message is sent to the client.
 
-Server: LoginServlet
+### Server: `LoginServlet`
 
+```kotlin
 package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
@@ -734,12 +737,14 @@ open class LoginServlet : HttpServlet() {
         }
     }
 }
+```
 
-The server then uses the jjwt/jwtk library to decrypt and parse the JWT received. It validates that the request is indeed a login request by checking that the subject (sub) claim of the JWT has the value “LoginRequest”.
+The server then uses the **jjwt/jwtk** library to decrypt and parse the JWT received. It validates that the request is indeed a login request by checking that the subject (`sub`) claim of the JWT has the value **“LoginRequest”**.
 
 
-Server: LoginServlet
+### Server: `LoginServlet`
 
+```kotlin
 package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
@@ -793,11 +798,13 @@ open class LoginServlet : HttpServlet() {
         }
     }
 }
+```
 
 The login servlet then reads the user claims from JWT and makes a database look up to authenticate the user ensuring that the user also belongs to the said application with the specified appId received in the request.
 
-Server: LoginServlet
+### Server: `LoginServlet`
 
+```kotlin
 package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
@@ -860,12 +867,13 @@ open class LoginServlet : HttpServlet() {
         }
     }
 }
+```
 
-Finally, if all adds up, the servlet constructs an access token putting in the user information and an expiry timestamp of one hour from the time the token was generated, and sends the access token as a serialized OperationResult<String>.
+Finally, if all adds up, the servlet constructs an access token putting in the user information and an expiry timestamp of one hour from the time the token was generated, and sends the access token as a serialized `OperationResult<String>`.
 
-Server: LoginServlet
+### Server: `LoginServlet`
 
-
+```kotlin
 package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
@@ -932,14 +940,16 @@ open class LoginServlet : HttpServlet() {
         }
     }
 }
+```
+
+The `APIAuthenticationManager` class at the client deserializes the JSON  string response and gives it to its caller within the client.
+
+The caller is the **Login** dialog, which checks if the response received is successful, meaning if the user is a valid user, it unpacks the access token from the `data` property of the `OperationResult<T>` object and creates a new window to display the book recommendations. To the book recommendations window’s constructor, it passes the access token. The book recommendation screen needs this access token to make subsequent requests to retrieve the list of book recommendations from the server. It will need to send this access token with every request it makes.
 
 
-The APIAuthenticationManager class at the client deserializes the JSON  string response and gives it to its caller within the client.
-The caller is the Login dialog, which checks if the response received is successful, meaning if the user is a valid user, it unpacks the access token from the data property of the OperationResult<T> object and creates a new window to display the book recommendations. To the book recommendations window’s constructor, it passes the access token. The book recommendation screen needs this access token to make subsequent requests to retrieve the list of book recommendations from the server. It will need to send this access token with every request it makes.
+### Client: `LoginPane.btnLogin::actionListener`
 
-
-Client: LoginPane.btnLogin::actionListener
-
+```kotlin
 btnLogin.addActionListener(object : ActionListener {
 
 	override fun actionPerformed(e : ActionEvent) {
@@ -982,12 +992,13 @@ btnLogin.addActionListener(object : ActionListener {
 		}
 	}
 });
+```
 
-The book recommendations window puts makes an HTTP post request sending the access token in the HTTP Authorization header and the appId in the request body. It sends this new request to the recommendations url of the Web API. The recommendations url is at https://localhost:8443/recommend and is attended to by a servlet named RecommendServlet, which we will list later in this document.
+The book recommendations window puts makes an HTTP post request sending the access token in the HTTP Authorization header and the appId in the request body. It sends this new request to the recommendations url of the Web API. The recommendations url is at [https://localhost:8443/recommend](https://localhost:8443/recommend) and is attended to by a servlet named `RecommendServlet`, which we will list later in this document.
 
+### Client: `BookRecommendationsFrame`
 
-Client: BookRecommendationsFrame
-
+```kotlin
 package bookyard.client;
 
 public class BookRecommendationsFrame(var accessToken : String?) : JFrame() {
@@ -1049,14 +1060,18 @@ public class BookRecommendationsFrame(var accessToken : String?) : JFrame() {
         }
     }
 }
+```
 
 From this point onwards, at the server, an authorization filter filters every request before it reaches any servlet or endpoint other than the /login endpoint.
+
+![Bookyard Request Response Control Flow](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/Bookyard%20Request%20Response%20Control%20Flow.png)
  
-The authorization filter checks for the presence of an access token in the Authorization HTTP header, parses it and validates the token.
-If the token is valid, the request is passed to the next filter in the chain of filters and subsequently to its ultimate destination servlet. If not, the filter returns an appropriate error response as an OperationResult<T>.
+The authorization filter checks for the presence of an access token in the **Authorization** HTTP header, parses it and validates the token.
 
-Server: AuthorizationFilter
+If the token is valid, the request is passed to the next filter in the chain of filters and subsequently to its ultimate destination servlet. If not, the filter returns an appropriate error response as an `OperationResult<T>`.
 
+### Server: `AuthorizationFilter`
+```kotlin
 package bookyard.server;
 
 public class AuthorizationFilter : Filter {
@@ -1145,12 +1160,13 @@ public class AuthorizationFilter : Filter {
         }
     }
 }
+```
 
-The recommendations servlet embodied in the class RecommendServlet does not need to validate the request for the presence of an access token. It simply does what it is meant to do – return the list of recommendations based on a user’s likes. It does this by looking up the database.
+The recommendations servlet embodied in the class `RecommendServlet` does not need to validate the request for the presence of an access token. It simply does what it is meant to do – return the list of recommendations based on a user’s likes. It does this by looking up the database.
 
-Server: RecommendServlet
+### Server: `RecommendServlet`
 
-
+```kotlin
 package bookyard.server;
 
 @WebServlet("/recommend")
@@ -1197,7 +1213,7 @@ public class RecommendServlet : HttpServlet() {
         return;
     }
 }
-
+```
 
 ## Database Schema
 It would make sense to look at the database scheme now. Most of the column names are descriptive, so you’ll get what they mean. I’ll provide an explanation only where it is necessary.
