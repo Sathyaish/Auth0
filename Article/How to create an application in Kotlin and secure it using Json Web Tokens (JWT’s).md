@@ -385,40 +385,44 @@ Imagine building a job search portal. You need to validate that the user is abov
 
 #### Authorization
 
-Another use that has come to light is the sharing of data from one Web application to another. Consider yourself developing a photo editing software for your users. Instead of having users upload pictures to your Web server, you could pull out their pictures from their Flickr accounts, edit them in your application, and save them to the user’s dropbox or back to their Flickr accounts. In this case, you don’t care about the user’s identity so much as much as you care about their permission to use their Flickr photographs and their dropbox account.
+[Another use](https://www.youtube.com/watch?v=hRjwPnulKqg) that has come to light is the sharing of data from one Web application to another. Consider yourself developing a photo editing software for your users. Instead of having users upload pictures to your Web server, you could pull out their pictures from their [Flickr](https://www.flickr.com/) accounts, edit them in your application, and save them to the user’s [dropbox](https://www.dropbox.com/) or back to their Flickr accounts. In this case, you don’t care about the user’s identity so much as much as you care about their permission to use their Flickr photographs and their dropbox account.
 
 Both the above uses, namely authentication and authorization of users, dictate the separation of the server granting the token, the role of such a token, and consequently its contents.
 
-Though OAuth 2.0 access tokens are opaque strings, the authorization server may, upon request, attach additional information about a user such as his full name, email address, organization, designation and what have you into the token container. Such a workflow is illustrated by a variation named Open ID Connect, which builds on top of the OAuth 2.0 framework. This token would then be called an ID Token. This would obviate the necessity for a database look-up. If such information were to be required by any of the servers A or B, they could simply read it from the ID token itself without making a trip to the database server. Each such optional datum attached to an access token is known as a claim as it establishes a claim upon the identity of the user. For this reason, token based authentication is also referred to as claims based authentication.
+Though OAuth 2.0 access tokens are opaque strings, the authorization server may, upon request, attach additional information about a user such as his full name, email address, organization, designation and what have you into the token container. Such a workflow is illustrated by a variation named [Open ID Connect](http://openid.net/connect/), which builds on top of the OAuth 2.0 framework. This token would then be called an *ID Token*. This would obviate the necessity for a database look-up. If such information were to be required by any of the servers **A** or **B**, they could simply read it from the ID token itself without making a trip to the database server. Each such optional datum attached to an access token is known as a claim as it establishes a claim upon the identity of the user. For this reason, token based authentication is also referred to as *claims based authentication*.
 
 The client or server may communicate using tokens even when their dialog does not pertain to authentication or authorization. With each request, the client may package information it needs to send to the server in the form of a token, although, it wouldn’t be called an access token in that case. You’ll observe later that the login dialog of Bookyard Client sends the user’s username and password in such a token when making a login request to the Bookyard server. That is an example usage of a token of such kind but not for the purposes of behaving like an access token.
 
 
 ## Scenario 2: The Distributed Web and OAuth 2.0
 
-This mechanism of claims based authorization described in the above paragraphs has opened up the Web to new possibilities. Consider a scenario where you needed to import your Gmail contacts into Linked In so you could invite them all to join your Linked In network.
+This mechanism of *claims based authorization* described in the above paragraphs has opened up the Web to new possibilities. [Consider a scenario](https://www.youtube.com/watch?v=60j9RfRvHJQ) where you needed to import your [**Gmail**](http://gmail.com/) contacts into [**Linked In**](http://linkedin.com/) so you could invite them all to join your **Linked In** network.
 
-Until the year 2007, you couldn’t have done that without having your arm twisted. The only way to do that would have been for Linked In to present you with a screen where in you typed your Gmail user name and password into a Linked In user interface, effectively giving Linked In your Gmail user name and password. What a shoddy life our younger selves lived!
+Until the year 2007, you couldn’t have done that without having your arm twisted. The only way to do that would have been for **Linked In** to present you with a screen where in you typed your **Gmail** user name and password into a **Linked In** user interface, effectively giving **Linked In** your **Gmail** user name and password. What a shoddy life our younger selves lived!
 
 Thankfully, a bunch of guys at Twitter got together and said, “That must change
 
 They started by identifying that in a transaction of the kind described above, there are three parties involved:
 
-1.	A resource server: A server where the user’s data is kept. In this case, Gmail, because your contacts would be kept there.
-2.	A user, who owned the resources at Gmail; and
-3.	A client: A third-party application that needed access to your data from the resource server. In other words, Linked In (the third-party) that needed your Gmail (resource server) contacts.
+1. A resource server: A server where the user’s data is kept. In this case, Gmail, because your contacts would be kept there.
+2. A user, who owned the resources at Gmail; and
+3. A client: A third-party application that needed access to your data from the resource server. In other words, Linked In (the third-party) that needed your Gmail (resource server) contacts.
 
-They wrote out a bunch of rules which, both, the resource server, Gmail in this example, and the third-party application, Linked In in our example, would have to incorporate into their code in order to perform claims based authorization so that you wouldn’t have to give your Gmail user name and password to Linked In.
+They wrote out a bunch of rules which, both, the resource server, **Gmail** in this example, and the third-party application, Linked In in our example, would have to incorporate into their code in order to perform claims based authorization so that you wouldn’t have to give your Gmail user name and password to Linked In.
 
-This grand scheme of interaction, they called OAuth. It has since caught on like wild fire.
+This grand scheme of interaction, they called [OAuth](https://oauth.net/). It has since caught on like wild fire.
 
-OAuth has, since its advent, been revised twice as v1, v1a and v2.0. Version 2.0 is the most recent and popular one and the versions are not backward compatible. Any reference to OAuth in this article without an explicit version suffix must be understood to mean OAuth 2.0.
+OAuth has, since its advent, been revised twice as [v1](https://tools.ietf.org/html/rfc5849), [v1a](https://oauth.net/core/1.0a/) and v2.0(https://oauth.net/2/). Version 2.0 is the most recent and popular one and the versions are not backward compatible. Any reference to OAuth in this article without an explicit version suffix must be understood to mean [OAuth 2.0](https://tools.ietf.org/html/rfc6749).
 
-Today, virtually every website from Github to Gmail, Picassa to Flickr, and perhaps even your own company has a resource server that exposes data in an OAuth way. The OAuth 2.0 specification also calls resource servers by the name OAuth servers, and the third-party clients by the name OAuth clients.
+Today, virtually every website from [**Github**](https://github.com/) to [**Gmail**](http://gmail.com/), [**Picassa**](https://picasa.google.co.in/) to [**Flickr**](https://www.flickr.com/), and perhaps even your own company has a resource server that exposes data in an OAuth way. The [OAuth 2.0 specification](https://tools.ietf.org/html/rfc6749) also calls resource servers by the name *OAuth servers*, and the third-party clients by the name *OAuth clients*.
 
-Today, virtually every user, knowingly or not, uses OAuth. Wherever on the Web you see buttons of the kind below, that is OAuth 2.0 in action.
+Today, virtually every user, knowingly or not, uses OAuth. Wherever on the Web you see [buttons of the kind below](https://www.youtube.com/watch?v=Q-Q03qzC7zA), that is [OAuth 2.0 in action](https://www.youtube.com/watch?v=CiwtxlitF7Y).
 
-The evolution of the Web has enabled a scenario where the traditional web application could be written by an OAuth provider, the client application, as was the case with Linked In in our example above, written by someone else, and the user could be someone else.
+![Login with Facebook](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/LoginWithFacebook.png)
+![Login with Github](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/LoginWithGithub.png)
+![Import Linked In profile](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/ImportLinkedInProfile.png)
+
+The evolution of the Web has enabled a scenario where the traditional web application could be written by an OAuth provider, the client application, as was the case with **Linked In** in our example above, written by someone else, and the user could be someone else.
 
 OAuth 2.0 access tokens are opaque and can be any string; even the string “Hello, World!” But such a value offers no security. In practice, an access token is a bit more useful than “Hello, World,” carries an expiry timestamp and and may even be encrypted using symmetric or asymmetric encryption.
 
@@ -428,11 +432,11 @@ OAuth 2.0 access tokens are opaque and can be any string; even the string “Hel
 The access token is essentially a string sent in the header of the HTTP response by the authorization server to the client. 
 
 With every subsequent request, the client sends this string back to the server in one of the three ways:
-1.	As a part of the URL in a GET request; or
-2.	As the part of the body in a POST request; or
-3.	The most preferred way is to send it as part of the Authorization HTTP Header in the form:
+1. As a part of the URL in a GET request; or
+2. As the part of the body in a POST request; or
+3. The most preferred way is to send it as part of the Authorization HTTP Header in the form:
 
-Authorization: Bearer <accessToken>
+`Authorization: Bearer <accessToken>`
 
 The OAuth 2.0 specification pussy-foots its way out of mandating a method, deferring the choice to the authorization server. In other words, whether or not to use a JWT for an access token, which of the above three methods a client must adopt is dictated by the authorization server documentation. The OAuth 2.0 extensions specifications relate to the choices of the access token structure. Clients are not free to choose any of the three at their disposition.
 
