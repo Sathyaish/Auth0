@@ -510,20 +510,15 @@ When the user clicks the **Login** button on the **Login** dialog, the client ap
 
 | Claim Name |	Claim Meaning |	Claim Value |
 |------------|----------------|-------------|
-|Iss	| Issuer of the JSON Web Token (JWT).
-
-Since the client is sending this new JWT, it writes its own application Id as the value of this claim. Though we’re using a JWT to send this information, we could have sent it as the body of a normal POST request.
-
-However, sending this information encrypted within a JWT makes it more secure.
-
-Also, this is a use of a JWT that is not used as an access token. An access token is granted by an authorization server to the client. This is an example of using a JWT as a means to communicate generic information securely between two parties. | The application Id of the client application. |
+|Iss	| Issuer of the JSON Web Token (JWT). Since the client is sending this new JWT, it writes its own application Id as the value of this claim. Though we’re using a JWT to send this information, we could have sent it as the body of a normal POST request. However, sending this information encrypted within a JWT makes it more secure. Also, this is a use of a JWT that is not used as an access token. An access token is granted by an authorization server to the client. This is an example of using a JWT as a means to communicate generic information securely between two parties. | The application Id of the client application. |
 |Sub	| The subject of the claim. | This can be any mutually agreed value between the client and the OAuth server.	In our example, the server expects the value “LoginRequest” for a login request coming from a client.|
 | username |	The user name of the user attempting to login. | There’s presently no way to create a new user and there exists just one user in the application at present. The user name of that user is Sathyaish. |
 | Password |	The password of the user attempting to login. |	The password of the only user of this application is FooBar. |
 
 The code to send this information is in a class named `APIAuthenticationManager`, which resides in the **Client** project in the package `bookyard.client` as shown by the code listing below.
 
-### Client: APIAuthenticationManager class
+### Client: `APIAuthenticationManager` class
+
 ```kotlin
  package bookyard.client;
 
@@ -585,13 +580,17 @@ public class APIAuthenticationManager :
 ```
 
 
-The client application uses the open source library jjwt/jwtk to make the Json Web Token (JWT). The JWT is then signed with the application secret.
-When an OAuth client registers with an OAuth server, it is granted an application Id and application secret. The database that the Web API references, has these values stored for each client.
-So that the Web API can know which client sent this request, and fetch its application secret from the database, and use that secret to decrypt the JWT, the client sends in the body of the POST request, its own application Id in addition to the JWT.
-The server returns a JSON string that is the serialized form of a class named OperationResult<String>. The OperationResult<T> class is declared in the Contracts module as follows:
+The client application uses the open source library [jjwt/jwtk](https://github.com/jwtk/jjwt) to make the Json Web Token (JWT). The JWT is then signed with the **application secret**.
 
-Contracts: OperationResult<T> class
+When an OAuth client registers with an OAuth server, it is granted an **application Id** and **application secret**. The database that the Web API references, has these values stored for each client.
 
+So that the Web API can know which client sent this request, and fetch its **application secret** from the database, and use that secret to decrypt the JWT, the client sends in the body of the POST request, its own **application Id** in addition to the JWT.
+
+The server returns a JSON string that is the serialized form of a class named `OperationResult<String>`. The `OperationResult<T>` class is declared in the **Contracts** module as follows:
+
+### Contracts: `OperationResult<T>` class
+
+```kotlin
 package bookyard.contracts;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -603,14 +602,18 @@ data class OperationResult<T>
 		@JsonProperty("errorMessage") val errorMessage : String?,
         @JsonProperty("data") val data : T?) {
 }
+```
 
-Assuming that the server’s root is at https://localhost:8443, the client sends this request to the following URL:
-HTTP POST https://localhost:8443/login
-A servlet named LoginServlet is configured to accept HTTPS requests from this route.
+Assuming that the server’s root is at [https://localhost:8443](https://localhost:8443), the client sends this request to the following URL:
+
+`HTTP POST [https://localhost:8443/login](https://localhost:8443/login)`
+
+A servlet named `LoginServlet` is configured to accept HTTPS requests from this route.
 
 
-Server : LoginServlet
+### Server : `LoginServlet`
 
+```kotlin
 package bookyard.server;
 
 import java.io.IOException;
@@ -640,6 +643,7 @@ import bookyard.contracts.beans.*;
 open class LoginServlet : HttpServlet() {
 	...
 }
+```
 
 The servlet invalidates GET requests on its endpoint by returning a 405, bad request / method not allowed HTTP status code. This is a security measure to ensure that the JWT and the appId are not sent as a part of the URL. Although there is nothing wrong with sending this information in the URL from a security viewpoint, the specification defining URL’s allows a permissible length of 4096 bytes, so it is prudent that the server mandate this information be sent only as an HTTP POST request.
 
