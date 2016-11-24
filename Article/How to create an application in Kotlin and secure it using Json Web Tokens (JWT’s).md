@@ -38,7 +38,7 @@ In fact, let us cover all of the features of Kotlin used in the [code that goes 
 
 ## A Crash Course in Kotlin
 
-To declare a variable that can be written to and read from:
+To declare a variable that can be read from *and written to*, use the `var` keyword:
 ```kotlin
 var name : String = “Joe Bloggs”;
 
@@ -49,7 +49,7 @@ age = 21; // valid statement since the variable is writable also
 
 Semi-colons as statement terminators are optional. But it’s a good practice to have them anyway. All throughout our code, we’ll use semi-colons to terminate statements.
 
-To declare a read-only variable that can only be initialized once:
+To declare a read-only variable that can only be initialized once, use the `val` keyword:
 ```kotlin
 val name : String = “Joe Bloggs”;
 
@@ -74,35 +74,68 @@ class Student; // if the class is empty, the curlies are optional.
 ```
 
 To create an object of the Student class:
+```kotlin
+// Kotlin does not have the new keyword. 
+// This creates a read-only / assign-once 
+// variable of type Student.
+val student : Student = Student();
+
+val student = Student(); // type inferred
+
+// read-write variable
+var student : Student = Student();
+```
 
 Nullable types:
 
 Kotlin distinguishes between nullable and non-nullable types. Each type, whether a primitive or user-defined, has both, a nullable version and a non-nullable version. You create a nullable version by appending a ? symbol after the type name.
 
+```kotlin
+var age : Int? = 2; // nullable integer
+
+age = null; // valid
+
+val joe : Student? = null; // valid
+
+var lisa : Student = null; // illegal. Compiler error. The variable is not nullable.
+```
 
 To declare a class Student with a read-only, non-nullable property called name and a read-write, nullable property called age:
 
+```kotlin
+class Student(val name : String, var age : Int?);
+```
 
-In the above code, name and age are properties. Kotlin creates a getter for the name property and a getter and setter pair for the age property. Also, the Student class in the listing above gets a parameterized constructor.
+In the above code, `name` and `age` are properties. Kotlin creates a getter for the `name` property and a getter and setter pair for the `age` property. Also, the `Student` class in the listing above gets a parameterized constructor.
+
 To create an object of the Student class and use it:
-
-
+```kotlin
+// creates a read-only, nullable variable of type student
+val student : Student? = Student(“Lisa”, null); 
+```
 
 To create a class with optional parameters in its constructor:
+```kotlin
+class Student(val name : String, 
+              var age : Int? = null, 
+              var gender : String = “Male”);
+// optional argument omitted. Nullable student.
+val joe : Student? = Student(“Joe Bloggs”, 20);
 
+// Provided an explicit value for all 
+// arguments including the optional argument. 
+// Non-nullable student.
+val lisa : Student = Student(“Lisa Hendricks”, 18, “Female”);
+```
 
-
-
-
-
-
-
-
-
-Functions in Kotlin can exist independently outside of any class. To create a function that returns void (Unit is a type that means void):
-
-
-
+Functions in Kotlin can exist independently outside of any class. To create a function that returns void (`Unit` is a type that means void):
+```kotlin
+fun Print(name : String?) : Unit {
+  if (name != null) {
+    println(name);
+  }
+}
+```
 
 
 
