@@ -330,9 +330,10 @@ In order to understand how we’ll ensure secured communication between the clie
 Consider a traditional web application that resides on a single server. That’s how it used to be done in the old days when the Web was a new thing – you had all the source code on a single server.
 
 You had two parties:
+
 1. A web server that had some server side code that ran on the remote server and also some client side code that ran on the browser. 
 
-Since both, the client code and the server code were part of a single application written usually by a single developer or company, the server side code and the client side code could be considered a single entity or a single application.
+   Since both, the client code and the server code were part of a single application written usually by a single developer or company, the server side code and the client side code could be considered a single entity or a single application.
 
 2. The user using the application in a Web browser.
 
@@ -342,27 +343,33 @@ When the user logged in, the server would issue a session id and an authenticati
 This all worked fine until the number of users outgrew the server’s capacity to handle requests.
 
 
-## Scenario 1: A Clustered Environment
+### Scenario 1: A Clustered Environment
 
-When you had two servers running the same application code, you had a problem. If the login request came to server A, which issued a session cookie and an authentication cookie to the user, server B didn’t know anything about those cookies, so any subsequent requests coming in to server B even after the user had innocently validated his identity earlier with server A would fail with server B.
+When you had two servers running the same application code, you had a problem. If the login request came to **server A**, which issued a session cookie and an authentication cookie to the user, **server B** didn’t know anything about those cookies, so any subsequent requests coming in to **server B** even after the user had innocently validated his identity earlier with **server A** would fail with **server B**.
 
-One obvious solution to this problem is to make server A and server B share their session Id’s. This could be done by having an external state server that held the session state for the entire Web application in an external data source such as a database or an in-memory state server.
+One obvious solution to this problem is to make **server A** and **server B** share their session Id’s. This could be done by having an external state server that held the session state for the entire Web application in an external data source such as a database or an in-memory state server.
 
-A similar but simpler and more secure solution, however, is to have a separate authentication server. Each request that comes to either of the servers A or B is validated for the presence of a special value in the request header – a value that could only have been obtained from the authentication server. If the value is present, the servers A or B service the request. If, however, the special value is missing, the client gets redirected to the authentication server, which after logging the user in, issues this special value that represents a successful login and an active session. Let’s call this value returned by the authentication server may be called an authentication token.
+A similar but simpler and more secure solution, however, is to have a separate authentication server. Each request that comes to either of the servers **A** or **B** is validated for the presence of a special value in the request header – a value that could only have been obtained from the authentication server. If the value is present, the servers **A** or **B** service the request. If, however, the special value is missing, the client gets redirected to the authentication server, which after logging the user in, issues this special value that represents a successful login and an active session. Let’s call this value returned by the authentication server may be called an *authentication token*.
 
 Below is a diagrammatic representation of this simple sequence of three interactions.
 
-Under this regime, when the user sends in a request to any of the servers A or B, each of them checks if the user has an access token or not. If he doesn’t, they redirect his request to the authorization server, whose duty is to ask the user for his user name and password, authenticate his identity and issue him an authentication token upon successful login.
+![Simple Authentication Server Workflow -- Step 1](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/Simple-1.png)
+
+Under this regime, when the user sends in a request to any of the servers **A** or **B**, each of them checks if the user has an authentication token or not. If he doesn’t, they redirect his request to the authorization server, whose duty is to ask the user for his user name and password, authenticate his identity and issue him an authentication token upon successful login.
+
+![Simple Authentication Server Workflow -- Step 2](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/Simple-2.png)
  
-The user’s request is then redirected automatically back to the original URL he intended to get the data from, i.e. one of server A or server B. This time, his request carries with it the token, so either of the servers fulfills his request. 
+The user’s request is then redirected automatically back to the original URL he intended to get the data from, i.e. one of **server A** or **server B**. This time, his request carries with it the token, so either of the servers fulfills his request.
 
-This scheme of authentication and authorization is known as token based authentication or token based authorization. A series of steps performed in a sequence, as indicated above, may also be called a workflow. Let us name this particular workflow the Simple Authentication Server Workflow.
+![Simple Authentication Server Workflow -- Step 3](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/Simple-3.png)
 
-I’d like to confess that the names authentication token and Simple Authentication Server Workflow are names I have made up. You will not find them in security literature. But in deliberately flying by the seat of my pants on good accord, I am trying to avoid trespassing names that already occur in security literature with specific connotations. If I named this token an access token, for example, or I named the series of steps described above as Authorization Workflow, I’d be trespassing a commonly accepted nomenclature that we’ll make a nodding acquaintance with later in this article.
+This scheme of authentication and authorization is known as *token based authentication* or *token based authorization*. A series of steps performed in a sequence, as indicated above, may also be called a workflow. Let us name this particular workflow the *Simple Authentication Server Workflow*.
+
+I’d like to confess that the names *authentication token* and *Simple Authentication Server Workflow* are names I have made up. You will not find them in security literature. But in deliberately flying by the seat of my pants on good accord, I am trying to avoid trespassing names that already occur in security literature with specific connotations. If I named this token an *access token*, for example, or I named the series of steps described above as [*Authorization Workflow*](https://www.youtube.com/watch?v=1vovk4yt2GI), I’d be trespassing a commonly accepted nomenclature that we’ll make a nodding acquaintance with later in this article.
 
 The above series of steps, though potent as a basic building block for more specialized variants, are rather simplistic in that they do not describe the contents of the token, and ways of securing it against theft. In practice, how we name such a token is predicated on such puritanical considerations.
 
-## Token Uses and Composition
+### Token Uses and Composition
 
 In our simple example, the client application is a Web application that serves a list of book recommendations for a user based on the user’s likes. The authentication server is a separate endpoint that could be a part of the same application or of a different one. The simplicity, however, is born of an assumption that both, the authentication server and the resource servers are developed by the same vendor.
 
@@ -370,13 +377,13 @@ Because both, the authentication server and the resource servers are assumed to 
 
 The evolution of the Web in recent times has opened up a slew of interesting possibilities which call for variations on the workflow described above.
 
-## Authentication
+#### Authentication
 
 Big players such as Google, Yahoo!, Facebook, to name a few, command large user bases of the total Internet population. This has encouraged users and Web application developers to trust these big players to authenticate users for their identity, consequently freeing up Web application developers to concentrate on developing just business logic, delegating the just the authentication of their users to these giants.
 
 Imagine building a job search portal. You need to validate that the user is above 18 years of age and has a valid social security number. You don’t really care about any other information about the user. In this case, you could use the US government website to validate the user against these two parameters and receive a token containing identification information about the user. This specific need for authenticating a user’s identity dictates what the contents of the token will be.
 
-## Authorization
+#### Authorization
 
 Another use that has come to light is the sharing of data from one Web application to another. Consider yourself developing a photo editing software for your users. Instead of having users upload pictures to your Web server, you could pull out their pictures from their Flickr accounts, edit them in your application, and save them to the user’s dropbox or back to their Flickr accounts. In this case, you don’t care about the user’s identity so much as much as you care about their permission to use their Flickr photographs and their dropbox account.
 
