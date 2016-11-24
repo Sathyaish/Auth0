@@ -119,6 +119,7 @@ To create a class with optional parameters in its constructor:
 class Student(val name : String, 
               var age : Int? = null, 
               var gender : String = “Male”);
+	      
 // optional argument omitted. Nullable student.
 val joe : Student? = Student(“Joe Bloggs”, 20);
 
@@ -137,136 +138,173 @@ fun Print(name : String?) : Unit {
 }
 ```
 
-
-
 The Unit keyword is optional. The same function could be re-written as:
-
-
-
-
-
+```kotlin
+fun Print(name : String?) {
+  if (name != null) {
+    println(name);
+  }
+}
+```
 
 To create a class with instance methods:
-
-
-
-
-
-
-
-
+```kotlin
+class Student(val name : String) {
+ 	fun displayName() {
+		println(this.name);
+	}
+}
+```
 
 To use it:
+```kotlin
+val joe : Student = Student(“Joe Bloggs”);
 
-
-
+joe.displayName();
+```
 
 Kotlin does not have static classes. Since functions can exist independent of classes, you just write your functions that you would have wanted to write in a static class in a separate file.
+```kotlin
+// file: JustMyFunctions.kt
 
+fun play() {
+}
 
+fun stop() {
+}
 
+fun sing(song : String) {
+}
 
-
-
-
-
-
+fun fastForward(frames : Int) : Boolean {
+}
+```
 
 Sometimes, you want to create a class with no methods but just to hold data so you can serialize / deserialize it or just hold some data in it so as to pass that data across the boundaries of your application. Such classes are referred to by various names such as Data Transfer Objects, or data objects or beans or Plain Old Java Objects (POJO’s) or Plain Old CLR Objects (POCO’s) in the case of C# and .NET.
-To create a class of that kind, you’ll simply add the keyword data before the class keyword like so:
 
+To create a class of that kind, you’ll simply add the keyword `data` before the class keyword like so:
+```kotlin
+data class Student(val name : String) {
+	// A class with one read-only, 
+	// non-nullable property that has 
+	// only a getter for its name property
+}
+```
 
+When you create a data class, in addition to the getters and setters for properties, which Kotlin creates even for classes that are not marked as `data` classes, Kotlin generates the following methods for the data class behind the scenes:
+```kotlin
+hashCode();
 
+toString();
 
+equals();
 
-
-When you create a data class, in addition to the getters and setters for properties, which Kotlin creates even for classes that are not marked as data classes, Kotlin generates the following methods for the data class behind the scenes:
-
-
-
-
+copy();
+```
 
 
 Annotations:
 You can annotate a method, constructor or class like in any other language:
+```kotlin
+@annotationForClass class 
+      @annotationForConstructor Student(
+               @propertyAnnotation val name : String) {
+	@methodAnnotation fun display() {
+		//
+	}
+}
+```
 
+All classes and methods in Kotlin are non-inheritable and non-overridable respectively unless otherwise explicitly stated by declaring them with the `open` keyword.
+```kotlin
+class ThisClassCannotBeInherited;
 
+open class ThisClassCan;
 
+open class ThisClassCanAlsoBeInherited {
+	
+  fun thisMethodCannotBeOverriden() {
+  }
 
+  open fun thisMethodCan() {
+  }
+}
 
-
-
-All classes and methods in Kotlin are non-inheritable and non-overridable respectively unless otherwise explicitly stated by declaring them with the open keyword.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class ChildClass : ThisClassCanAlsoBeInherited {
+  override fun thisMethodCan() {
+  }
+}
+```
 
 Interfaces and class inheritance:
+```kotlin
+interface IPerson {
+}
+
+open class Person : IPerson {
+}
+
+interface ILoggable {
+}
+
+open class Student : Person, IPerson, ILoggable {
+}
+```
 
 
+In Kotlin, packages and [Visibility Modifers](https://kotlinlang.org/docs/reference/visibility-modifiers.html) work exactly like they do in Java.
 
-
-
-
-
-
-
-
-
-In Kotlin, packages and Visibility Modifers work exactly like they do in Java.
 To create a Singleton object:
+```kotlin
+object IAmASingletonObject {
+  
+  val firstProperty : String;
+}
+```
 
+The above construct is called an *object declaration*. An object declaration is an object instance that does not belong to a class. And since that’s the only instance you can have of it, it is effectively a singleton object. Therefore, you use an object declaration when you need to create a singleton instance.
 
-
-
-The above construct is called an object declaration. An object declaration is an object instance that does not belong to a class. And since that’s the only instance you can have of it, it is effectively a singleton object. Therefore, you use an object declaration when you need to create a singleton instance.
 We use the object declaration like so:
-
+```kotlin
+IAmASingletonObject.firstProperty = “Hello, World!”;
+```
 
 You can put it inside a class as well. In this case, the object will be able to access the internals of its containing class.
-If you mark an object declaration with the companion keyword, the members of the companion object can be referenced directly as members of the containing class like so:
 
+If you mark an object declaration with the `companion` keyword, the members of the companion object can be referenced directly as members of the containing class like so:
+```kotlin
+class User(val userName : String,  val password : String?) {
+  companion object Validator {
+    public fun isValid() : Boolean {
+      
+      // access containing object’s members
+      If (userName.equals(“Joe”) {
+	//
+      }
+    }
+  }
+}
 
+// Usage
 
+val user : User = getUser();
 
-
-
-
-
-
-
-
-
-
-
-
+if (user.isValid()) {
+}
+```
 
 That’s pretty much all you need to know to get started and be productive with Kotlin.
+
 
 ## What We’re Going to Develop
 
 We’ll create a client/server application that gets from a web API, a list of book recommendations for a logged in user based on the user’s interests or likes. We’ll store the user’s likes in a database.
 
-We’ll write both the client and the web API in Kotlin. The client will be a desktop application written using the Swing/AWT libraries. The server, an HTTP Servlet that returns data objects declared in a library named Contracts as JSON strings. We’ll call our application, i.e. we’ll call this whole system by the name Bookyard.
+We’ll write both the client and the web API in Kotlin. The client will be a desktop application written using the Swing/AWT libraries. The server, an HTTP Servlet that returns data objects declared in a library named **Contracts** as JSON strings. We’ll call our application, i.e. we’ll call this whole system by the name Bookyard.
 
 Here’s what the high-level component architecture for Bookyard would look like:
- 
+
+![Bookyard Component Architecture](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/Bookyard%20Component%20Architecture.png)
 
 ## Workflow
 
