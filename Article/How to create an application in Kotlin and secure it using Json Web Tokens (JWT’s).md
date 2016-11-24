@@ -150,6 +150,7 @@ fun Print(name : String?) {
 To create a class with instance methods:
 ```kotlin
 class Student(val name : String) {
+
  	fun displayName() {
 		println(this.name);
 	}
@@ -185,9 +186,9 @@ Sometimes, you want to create a class with no methods but just to hold data so y
 To create a class of that kind, you’ll simply add the keyword `data` before the class keyword like so:
 ```kotlin
 data class Student(val name : String) {
-	// A class with one read-only, 
-	// non-nullable property that has 
-	// only a getter for its name property
+  // A class with one read-only, 
+  // non-nullable property that has 
+  // only a getter for its name property
 }
 ```
 
@@ -207,8 +208,8 @@ Annotations:
 You can annotate a method, constructor or class like in any other language:
 ```kotlin
 @annotationForClass class 
-      @annotationForConstructor Student(
-               @propertyAnnotation val name : String) {
+      @annotationForConstructor Student(@propertyAnnotation val name : String) {
+      
 	@methodAnnotation fun display() {
 		//
 	}
@@ -231,6 +232,7 @@ open class ThisClassCanAlsoBeInherited {
 }
 
 class ChildClass : ThisClassCanAlsoBeInherited {
+
   override fun thisMethodCan() {
   }
 }
@@ -274,7 +276,9 @@ You can put it inside a class as well. In this case, the object will be able to 
 If you mark an object declaration with the `companion` keyword, the members of the companion object can be referenced directly as members of the containing class like so:
 ```kotlin
 class User(val userName : String,  val password : String?) {
+
   companion object Validator {
+  
     public fun isValid() : Boolean {
       
       // access containing object’s members
@@ -309,8 +313,12 @@ Here’s what the high-level component architecture for Bookyard would look like
 ## Workflow
 
 Assuming the servlet application is running, when the user launches the client application, a login dialog will appear.
+
+![Bookyard Login Dialog](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/BookyardLogin.png)
  
 A successful login will dismiss the login dialog and display a window listing the recommended books for the logged in user.
+
+![Book Recommendations Window](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/RecommendationsWindow.png)
  
 Please ignore the aesthetical anomalies of the graphical user interface.
 
@@ -322,11 +330,11 @@ In order to understand how we’ll ensure secured communication between the clie
 Consider a traditional web application that resides on a single server. That’s how it used to be done in the old days when the Web was a new thing – you had all the source code on a single server.
 
 You had two parties:
-1.	A web server that had some server side code that ran on the remote server and also some client side code that ran on the browser. 
+1. A web server that had some server side code that ran on the remote server and also some client side code that ran on the browser. 
 
 Since both, the client code and the server code were part of a single application written usually by a single developer or company, the server side code and the client side code could be considered a single entity or a single application.
 
-2.	The user using the application in a Web browser.
+2. The user using the application in a Web browser.
 
 In those cases, a simple user name and password based authentication was sufficient to validate the identity of the user.
 When the user logged in, the server would issue a session id and an authentication cookie to the user’s browser. The browser would carry these two with every subsequent request to the server.
