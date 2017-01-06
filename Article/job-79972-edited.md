@@ -726,7 +726,7 @@ Both the above uses—namely, the authentication and authorization of users—di
 
 
 
-Though OAuth 2.0 access tokens are opaque strings, the authorization server may, upon request, attach additional information about a user, such as his full name, email address, organization, designation, and what have you into the token container. Such a workflow is illustrated by a variation named [Open ID Connect](http://openid.net/connect/), which builds on top of the OAuth 2.0 framework. This token would then be called an *ID Token*. [Kaci’s note: Note that only proper nouns should be in title case. If this is a common noun and thus not an official title, it should be in lowercase.] This would obviate the necessity for a database look-up. If such information were to be required by either of the servers (**A** or **B**), they could simply read it from the ID token itself without making a trip to the database server. Each such optional datum attached to an access token is known as a claim, as it establishes a claim upon the identity of the user. For this reason, token-based authentication is also referred to as *claims-based authentication*.
+Though OAuth 2.0 access tokens are opaque strings, the authorization server may, upon request, attach additional information about a user, such as his full name, email address, organization, designation, and what have you into the token container. Such a workflow is illustrated by a variation named [Open ID Connect](http://openid.net/connect/), which builds on top of the OAuth 2.0 framework. This token would then be called an *ID token*. This would obviate the necessity for a database look-up. If such information were to be required by either of the servers (**A** or **B**), they could simply read it from the ID token itself without making a trip to the database server. Each such optional datum attached to an access token is known as a claim, as it establishes a claim upon the identity of the user. For this reason, token-based authentication is also referred to as *claims-based authentication*.
 
 
 
@@ -792,14 +792,9 @@ Today, virtually every user, knowingly or not, uses OAuth. Wherever on the Web y
 
 
 
-The evolution of the Web has enabled a scenario where the traditional web application could be written by an OAuth provider. The client application, as was the case with **Linked In** in our example above, could be written by someone else, and the user could be someone else. [Kaci’s note: Do you mean “the user could be written by someone else”?]
-
-
+The evolution of the Web has enabled a scenario where the traditional web application could be written by an OAuth provider. The client application, as was the case with **Linked In** in our example above, could be written by someone else, and the user could be someone else.
 
 OAuth 2.0 access tokens are opaque and can be any string—even the string “Hello, World!” But such a value offers no security. In practice, an access token is a bit more useful than “Hello, World,” as it carries an expiry timestamp and may even be encrypted using symmetric or asymmetric encryption.
-
-
-
 
 
 ## What Is a JSON Web Token (JWT)?
@@ -816,7 +811,7 @@ With every subsequent request, the client sends this string back to the server i
 
 2. As the part of the body in a POST request, or
 
-3. (The preferred way) sent as part of the Authorization HTTP Header [Kaci’s note: Note that only proper nouns should be in title case. If this is a common noun and thus not an official title, it should be in lowercase.] in the following form:
+3. (The preferred way) sent as part of the Authorization HTTP header in the following form:
 
 
 
@@ -840,8 +835,7 @@ If you were to write a *client* that had to first decide how to compose an acces
 
 
 
-Thankfully, another bunch of people who were interested in and following the development of OAuth saw far into the future and were able to anticipate this pain. They defined a bunch of formats that all OAuth servers and clients could be free to choose from to create access tokens. One such format is named Json Web Tokens (JWTs). [Kaci’s note: In your document, you alternate between writing Json and JSON. Please fact-check to confirm which is used in your field, and then be sure to apply this correct term consistently throughout your entire document.]
-
+Thankfully, another bunch of people who were interested in and following the development of OAuth saw far into the future and were able to anticipate this pain. They defined a bunch of formats that all OAuth servers and clients could be free to choose from to create access tokens. One such format is named JSON Web Tokens (JWTs).
 
 
 The format lets you compose the access token as a JSON string.
@@ -960,7 +954,7 @@ It is mandated that we perform token-based authorization on a secure channel, su
 
 
 
-When the user clicks the **Login** button on the **Login** dialog, [Kaci’s note: Note that only proper nouns should be in title case. If this is a common noun and thus not an official title, it should be in lowercase.] the client application composes a Json Web Token containing the following claims:
+When the user clicks the **Login** button on the **Login** dialog, the client application composes a JSON Web Token containing the following claims:
 
 
 
@@ -992,7 +986,7 @@ CODE
 
 
 
-The client application uses the open-source library [jjwt/jwtk](https://github.com/jwtk/jjwt) to make the Json Web Token (JWT). The JWT is then signed with the **application secret**.
+The client application uses the open-source library [jjwt/jwtk](https://github.com/jwtk/jjwt) to make the JSON Web Token (JWT). The JWT is then signed with the **application secret**.
 
 
 
@@ -1078,7 +1072,7 @@ CODE
 
 
 
-The login servlet then reads the user claims from JWT and makes a database look-up to authenticate the user, ensuring that the user also belongs to the said application with the specified appId [Kaci’s note: Do you mean “app ID”?] received in the request.
+The login servlet then reads the user claims from JWT and makes a database look-up to authenticate the user, ensuring that the user also belongs to the said application with the specified `appId` received in the request.
 
 
 
@@ -1120,7 +1114,7 @@ CODE
 
 
 
-The book recommendations window makes an HTTP post request, sending the access token in the HTTP Authorization [Kaci’s note: Note that only proper nouns should be in title case. If this is a common noun and thus not an official title, it should be in lowercase.] header and the appId [Kaci’s note: Do you mean “app ID”?] in the request body. It sends this new request to the recommendations URL of the Web API. The recommendations URL is at [https://localhost:8443/recommend](https://localhost:8443/recommend) and is attended to by a servlet named `RecommendServlet`, which we will list later in this document.
+The book recommendations window makes an HTTP post request, sending the access token in the HTTP Authorization header and the `appId` in the request body. It sends this new request to the recommendations URL of the Web API. The recommendations URL is at [https://localhost:8443/recommend](https://localhost:8443/recommend) and is attended to by a servlet named `RecommendServlet`, which we will list later in this document.
 
 
 
@@ -1132,7 +1126,7 @@ CODE
 
 
 
-From this point onwards, at the server, an authorization filter filters every request before it reaches any servlet or endpoint other than the /login [Kaci’s note: Check to confirm that you need the slash here before “login.”] endpoint.
+From this point onwards, at the server, an authorization filter filters every request before it reaches any servlet or endpoint other than the `/login` endpoint.
 
 
 
@@ -1208,7 +1202,7 @@ It would make sense to look at the database scheme now. Most of the column names
 
 | Name | A user-friendly name for the OAuth client |
 
-| ApplicationId | A string representing the application ID that is displayed to the client application administrator. This string is used as the appId [Kaci’s note: Do you mean “app ID”?] during all communication between any OAuth clients and this server. |
+| ApplicationId | A string representing the application ID that is displayed to the client application administrator. This string is used as the `appId` during all communication between any OAuth clients and this server. |
 
 | ApplicationSecret  |	JWTs are signed with this symmetric key. |
 
